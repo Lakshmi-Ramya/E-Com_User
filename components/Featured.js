@@ -74,17 +74,31 @@ const CenterImg = styled.div`
   justify-content: center;
   width: 100%;
 `;
+const Rotate = keyframes`
+0% {
+  transform: rotateY(4deg);
+  
+}
+50% {
+  transform: rotateX(-10deg); 
+}
+100% {
+  transform: rotateY(12deg); 
+}
+`;
 
 const ImgColumn = styled(Column)`
   & > div {
     width: 100%;
+    animation: ${Rotate} 4s alternate infinite; /* Adjust the duration and timing function as needed */
+    transform-style: preserve-3d;
   }
 `;
 
 const ContentWrapper = styled.div``;
 
 const AnimatedDoubleArrowIcon = styled(DoubleArrowIcon)`
-  animation: ${bounce} 1s infinite;
+  animation: ${bounce} 2s infinite;
   font-size: 2rem;
 `;
 
