@@ -1,7 +1,7 @@
 import Link from "next/link";
 import styled from "styled-components";
 import Center from "@/components/Center";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { CartContext } from "@/components/CartContext";
 import BarsIcon from "@/components/icons/Bars";
 import SearchIcon from "@/components/icons/SearchIcon";
@@ -18,7 +18,7 @@ const StyledHeader = styled.header`
 
   /* Add a class when scrolled to make the box shadow appear */
   &.scrolled {
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 4px 6px rgba(0, 250, 250, 0.3);
   }
 `;
 const Logo = styled(Link)`
@@ -126,6 +126,23 @@ const SideIcons = styled.div`
 export default function Header() {
   const { cartProducts } = useContext(CartContext);
   const [mobileNavActive, setMobileNavActive] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        document.querySelector("header").classList.add("scrolled");
+      } else {
+        document.querySelector("header").classList.remove("scrolled");
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
     <StyledHeader>
       <Center>

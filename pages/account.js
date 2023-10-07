@@ -14,6 +14,7 @@ import ProductBox from "@/components/ProductBox";
 import Tabs from "@/components/Tabs";
 import SingleOrder from "@/components/SingleOrder";
 import Button from "@mui/material/Button";
+import ScrollToTopButton from "@/components/ScrollToTopButton";
 
 const ColsWrapper = styled.div`
   display: grid;
@@ -253,6 +254,7 @@ export default function AccountPage() {
             </RevealWrapper>
           </div>
         </ColsWrapper>
+        <ScrollToTopButton />
       </Center>
     </>
   );

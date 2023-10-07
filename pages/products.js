@@ -8,6 +8,7 @@ import Title from "@/components/Title";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { WishedProduct } from "@/models/WishedProduct";
+import ScrollToTopButton from "@/components/ScrollToTopButton";
 
 export default function ProductsPage({ products, wishedProducts }) {
   return (
@@ -16,6 +17,7 @@ export default function ProductsPage({ products, wishedProducts }) {
       <Center>
         <Title>All products</Title>
         <ProductsGrid products={products} wishedProducts={wishedProducts} />
+        <ScrollToTopButton />
       </Center>
     </>
   );

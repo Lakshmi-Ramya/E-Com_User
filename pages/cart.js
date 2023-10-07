@@ -9,6 +9,7 @@ import Table from "@/components/Table";
 import Input from "@/components/Input";
 import { RevealWrapper } from "next-reveal";
 import { useSession } from "next-auth/react";
+import ScrollToTopButton from "@/components/ScrollToTopButton";
 
 const ColumnsWrapper = styled.div`
   display: grid;
@@ -298,6 +299,7 @@ export default function CartPage() {
             </RevealWrapper>
           )}
         </ColumnsWrapper>
+        <ScrollToTopButton />
       </Center>
     </>
   );
