@@ -10,6 +10,14 @@ const GlobalStyles = createGlobalStyle`
     margin:0;
     font-family: 'Poppins', sans-serif;
   }
+  .carousel.carousel-slider .control-arrow {
+    top: 0;
+    background-color: cyan !important;
+    font-size: 26px;
+    bottom: 0;
+    margin-top: 0;
+    padding: 5px;
+  }
   hr{
     display: block;
     border:0;
