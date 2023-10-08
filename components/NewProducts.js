@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Center from "@/components/Center";
 import ProductsGrid from "@/components/ProductsGrid";
 import ScrollToTopButton from "./ScrollToTopButton";
+import HeaderTwo from "./HeaderTwo";
 
 const Title = styled.h2`
   font-size: 2rem;
@@ -11,10 +12,15 @@ const Title = styled.h2`
 
 export default function NewProducts({ products, wishedProducts }) {
   return (
-    <Center>
-      <Title>New Arrivals</Title>
-      <ProductsGrid products={products} wishedProducts={wishedProducts} />
+    <>
+      <Center>
+        <Title>New Arrivals</Title>
+        <ProductsGrid products={products} wishedProducts={wishedProducts} />
+      </Center>
+      <div className="my-4">
+        <HeaderTwo />
+      </div>
       <ScrollToTopButton />
-    </Center>
+    </>
   );
 }
