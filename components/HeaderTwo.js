@@ -3,7 +3,7 @@ import React from "react";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
 const DarkDiv = styled.div`
-  background-color: #222; /* Dark background color */
+  background-color: black; /* Dark background color */
   color: #fff;
   padding: 20px;
   text-align: center;
@@ -14,6 +14,7 @@ const DarkDiv = styled.div`
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
+  margin-top: 0px;
 `;
 
 const TextButtons = styled.div`
@@ -30,6 +31,13 @@ export default function HeaderTwo({ product }) {
   return (
     <>
       <DarkDiv>
+        <img
+          style={{ width: "200px" }}
+          src="../images/apple watch cropped bg.png"
+        ></img>
+
+        <p style={{ color: "red", fontSize: "24px" }}>Series 9</p>
+        <p style={{ fontSize: "20px" }}>Smarter. Brighter. Mightier</p>
         <ButtonContainer>
           <TextButtons>
             Learn More <ChevronRightIcon />
@@ -38,11 +46,7 @@ export default function HeaderTwo({ product }) {
             Buy <ChevronRightIcon />
           </TextButtons>
         </ButtonContainer>
-        <img
-          src="https://aks-next-ecom.s3.amazonaws.com/1696740684287.png"
-          alt="series 19"
-          class="image"
-        />
+        <img src="./images/applewatch.png" alt="series 19" class="image" />
       </DarkDiv>
     </>
   );
