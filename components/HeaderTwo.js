@@ -5,6 +5,8 @@ import { RevealWrapper } from "next-reveal";
 import Zoom from "react-reveal/Zoom";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
+import Accessories from "./Accessories";
+import FooterComponent from "./FooterComponent";
 
 const DarkDiv = styled.div`
   background-color: black;
@@ -143,6 +145,11 @@ export default function HeaderTwo({ product }) {
           </div>
         </Carousel>
       </div>
+      <DarkDiv>
+        <Accessories />
+      </DarkDiv>
+
+      <FooterComponent />
     </>
   );
 }
