@@ -12,11 +12,14 @@ const GlobalStyles = createGlobalStyle`
   }
   .carousel.carousel-slider .control-arrow {
     top: 0;
-    background-color: cyan !important;
+    background-color: #222 !important;
     font-size: 26px;
     bottom: 0;
     margin-top: 0;
     padding: 5px;
+  }
+  .carousel .control-dots .dot{
+    background-color: cyan!important;
   }
   hr{
     display: block;
