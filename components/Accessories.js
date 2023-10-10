@@ -19,7 +19,7 @@ const Card = styled.div`
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: transform 0.2s;
-  max-width: 300px; /* Max width for each card */
+  max-width: 250px; /* Max width for each card */
   cursor: pointer;
   position: relative;
 
@@ -61,25 +61,25 @@ function Accessories() {
     {
       id: 1,
       title: "Oneplus SUPERVOOC Type-A to Type-C Cable",
-      price: "$99.99",
+      price: "₹849",
       imageSrc: "./images/oneplus cable.png",
     },
     {
       id: 2,
-      title: "Product 2",
-      price: "$149.99",
+      title: "OnePlus Type-C Auxiliary Adapter",
+      price: "₹390",
       imageSrc: "./images/dongle oneplus.png",
     },
     {
       id: 3,
-      title: "Product 3",
-      price: "$79.99",
+      title: "OnePlus 18W Phone Cooler",
+      price: "₹3,299",
       imageSrc: "./images/cooler oneplus.png",
     },
     {
       id: 4,
-      title: "Product 4",
-      price: "$129.99",
+      title: "NSinc - Adjustable Laptop Cooling Pad",
+      price: "₹999",
       imageSrc: "./images/laptop cooler.webp",
     },
   ];
