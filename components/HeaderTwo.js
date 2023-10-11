@@ -14,7 +14,7 @@ const DarkDiv = styled.div`
   padding: 20px;
   text-align: center;
   max-width: 100% !important;
-  margin-top: 40px;
+  margin-top: 0px;
 `;
 const LightDiv = styled.div`
   background-color: #fff;
@@ -40,6 +40,11 @@ const TextButtons = styled.div`
   font-size: 20px;
 `;
 
+const CarouselImage = styled.img`
+  width: 100%;
+  height: 100%;
+`;
+
 export default function HeaderTwo({ product }) {
   return (
     <>
@@ -59,18 +64,18 @@ export default function HeaderTwo({ product }) {
           <img
             src="./images/Iphone 15 red no bg.png"
             alt="series 19"
-            class="image"
+            className="image"
           />
         </Zoom>
       </LightDiv>
 
-      {/* Applewatch series 19 secton */}
+      {/* Applewatch series 19 section */}
       <DarkDiv>
         <img
           style={{ width: "220px" }}
           src="../images/apple watch cropped bg.png"
-        ></img>
-
+          alt="Apple Watch"
+        />
         <p style={{ color: "red", fontSize: "24px" }}>Series 9</p>
         <p style={{ fontSize: "20px" }}>Smarter. Brighter. Mightier</p>
         <ButtonContainer>
@@ -83,17 +88,20 @@ export default function HeaderTwo({ product }) {
         </ButtonContainer>
 
         <Zoom duration={2500} delay={200}>
-          <img src="./images/applewatch.png" alt="series 19" class="image" />
+          <img
+            src="./images/applewatch.png"
+            alt="Series 9"
+            className="image"
+          />
         </Zoom>
       </DarkDiv>
 
-      {/* carousel section */}
-
+      {/* Carousel section */}
       <div
         style={{
-          opacity: "90%",
-          background: "white",
-          marginTop: "40px",
+          display: "flex",
+          justifyContent: "center",
+          marginTop: "0px",
         }}
       >
         <Carousel
@@ -106,45 +114,33 @@ export default function HeaderTwo({ product }) {
           showThumbs={false}
           interval={6000}
         >
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
-            <img
-              style={{ maxWidth: "600px" }}
-              src="https://aks-next-ecom.s3.amazonaws.com/1696583021178.png"
+          <div>
+            <CarouselImage
+              src="https://media-ik.croma.com/prod/https://media.croma.com/image/upload/v1696866343/Croma%20Assets/CMS/LP%20Page%20Banners/2023/HP%20Top%20Rotating%20Deals/October/iPhone/iPhone%2015/HP_iPhone15_10oct2023_su7rhp.jpg?tr=w-2048"
               alt="Carousel Image 1"
-              className="image"
             />
           </div>
           <div>
-            <img
-              style={{ maxWidth: "600px" }}
-              src="https://aks-next-ecom.s3.amazonaws.com/1696583447733.png"
+            <CarouselImage
+              src="https://media-ik.croma.com/prod/https://media.croma.com/image/upload/v1696918123/Croma%20Assets/CMS/LP%20Page%20Banners/2023/HP%20Top%20Rotating%20Deals/October/iPhone/iPhone%2013/HP_iPhone13_10oct2023_atu1cf.jpg?tr=w-2048"
               alt="Carousel Image 2"
-              className="image"
             />
           </div>
           <div>
-            <img
-              style={{ maxWidth: "600px" }}
-              src="https://aks-next-ecom.s3.amazonaws.com/1696674642943.png"
-              alt="Carousel Image 2"
-              className="image"
+            <CarouselImage
+              src="https://media-ik.croma.com/prod/https://media.croma.com/image/upload/v1696857170/Croma%20Assets/CMS/LP%20Page%20Banners/2023/HP%20Top%20Rotating%20Deals/October/Oct%2010th/HP_BTSpkrs_10oct2023_z92dyq.jpg?tr=w-2048"
+              alt="Carousel Image 3"
             />
           </div>
           <div>
-            <img
-              style={{ maxWidth: "700px" }}
-              src="https://aks-next-ecom.s3.amazonaws.com/1696743456170.png"
-              alt="Carousel Image 2"
-              className="image"
+            <CarouselImage
+              src="https://media-ik.croma.com/prod/https://media.croma.com/image/upload/v1696857173/Croma%20Assets/CMS/LP%20Page%20Banners/2023/HP%20Top%20Rotating%20Deals/October/Oct%2010th/HP_Tablets_10oct2023_agfl6e.jpg?tr=w-2048"
+              alt="Carousel Image 4"
             />
           </div>
         </Carousel>
       </div>
+
       <DarkDiv>
         <Accessories />
       </DarkDiv>
