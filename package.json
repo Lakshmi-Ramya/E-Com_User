@@ -24,6 +24,8 @@
     "next": "13.4.19",
     "next-auth": "^4.23.2",
     "next-reveal": "^1.0.6",
+    "nodemailer": "^6.9.6",
+    "pdfkit": "^0.13.0",
     "postcss": "8.4.28",
     "react": "18.2.0",
     "react-dom": "18.2.0",
