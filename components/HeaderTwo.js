@@ -41,8 +41,9 @@ const TextButtons = styled.div`
 `;
 
 const CarouselImage = styled.img`
-  width: 100%;
-  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
 `;
 
 export default function HeaderTwo({ product }) {
@@ -88,11 +89,7 @@ export default function HeaderTwo({ product }) {
         </ButtonContainer>
 
         <Zoom duration={2500} delay={200}>
-          <img
-            src="./images/applewatch.png"
-            alt="Series 9"
-            className="image"
-          />
+          <img src="./images/applewatch.png" alt="Series 9" className="image" />
         </Zoom>
       </DarkDiv>
 
@@ -141,10 +138,12 @@ export default function HeaderTwo({ product }) {
         </Carousel>
       </div>
 
+      {/* ACCESORIES */}
       <DarkDiv>
         <Accessories />
       </DarkDiv>
 
+      {/* FOOTER */}
       <FooterComponent />
     </>
   );

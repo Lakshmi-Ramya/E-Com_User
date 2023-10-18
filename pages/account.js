@@ -73,7 +73,7 @@ export default function AccountPage() {
     if (!session) {
       return;
     }
-    setAddressLoaded(false);
+    setAddressLoaded(true); //made a change in here from false -> true
     setWishlistLoaded(false);
     setOrderLoaded(false);
     axios.get("/api/address").then((response) => {
@@ -84,6 +84,7 @@ export default function AccountPage() {
       setStreetAddress(response.data.streetAddress);
       setCountry(response.data.country);
       setAddressLoaded(true);
+      console.log(response.data);
     });
     axios.get("/api/wishlist").then((response) => {
       setWishedProducts(response.data.map((wp) => wp.product));
