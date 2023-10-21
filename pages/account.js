@@ -1,20 +1,18 @@
-import Header from "@/components/Header";
-import Title from "@/components/Title";
 import Center from "@/components/Center";
-import { signIn, signOut, useSession } from "next-auth/react";
-// import Button from "@/components/Button";
-import styled from "styled-components";
-import WhiteBox from "@/components/WhiteBox";
-import { RevealWrapper } from "next-reveal";
+import Header from "@/components/Header";
 import Input from "@/components/Input";
+import Title from "@/components/Title";
+import WhiteBox from "@/components/WhiteBox";
+import Button from "@mui/material/Button";
+import { signIn, signOut, useSession } from "next-auth/react";
+import { RevealWrapper } from "next-reveal";
+import styled from "styled-components";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Spinner from "@/components/Spinner";
 import ProductBox from "@/components/ProductBox";
 import Tabs from "@/components/Tabs";
 import SingleOrder from "@/components/SingleOrder";
-import Button from "@mui/material/Button";
-import ScrollToTopButton from "@/components/ScrollToTopButton";
 
 const ColsWrapper = styled.div`
   display: grid;
@@ -26,10 +24,6 @@ const ColsWrapper = styled.div`
   }
 `;
 
-const CenterSave = styled.div`
-  text-align: center;
-`;
-
 const CityHolder = styled.div`
   display: flex;
   gap: 5px;
@@ -39,8 +33,15 @@ const WishedProductsGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 40px;
+  @media screen and (min-width: 768px) {
+    display: grid;
+  }
 `;
-
+const CenterButton = styled.div`
+  display: flex;
+  text-align: center;
+  justify-content: center;
+`;
 export default function AccountPage() {
   const { data: session } = useSession();
   const [name, setName] = useState("");
@@ -50,11 +51,12 @@ export default function AccountPage() {
   const [streetAddress, setStreetAddress] = useState("");
   const [country, setCountry] = useState("");
   const [addressLoaded, setAddressLoaded] = useState(true);
-  const [wishlistLoaded, setWishlistLoaded] = useState(true);
-  const [orderLoaded, setOrderLoaded] = useState(true);
   const [wishedProducts, setWishedProducts] = useState([]);
+  const [wishlistLoaded, setWishlistLoaded] = useState(true);
   const [activeTab, setActiveTab] = useState("Orders");
   const [orders, setOrders] = useState([]);
+  const [orderLoaded, setOrderLoaded] = useState(true);
+  const [showAlert, setShowAlert] = useState(false);
 
   async function logout() {
     await signOut({
@@ -67,24 +69,28 @@ export default function AccountPage() {
   function saveAddress() {
     const data = { name, email, city, streetAddress, postalCode, country };
     axios.put("/api/address", data);
-    alert("your account details have been saved successfully!");
+    alert("Account details saved and updated successfully!");
   }
   useEffect(() => {
     if (!session) {
       return;
     }
-    setAddressLoaded(true); //made a change in here from false -> true
+    setAddressLoaded(false);
     setWishlistLoaded(false);
     setOrderLoaded(false);
+
     axios.get("/api/address").then((response) => {
-      setName(response.data.name);
-      setEmail(response.data.email);
-      setCity(response.data.city);
-      setPostalCode(response.data.postalCode);
-      setStreetAddress(response.data.streetAddress);
-      setCountry(response.data.country);
-      setAddressLoaded(true);
-      console.log(response.data);
+      try {
+        setName(response.data.name);
+        setEmail(response.data.email);
+        setCity(response.data.city);
+        setPostalCode(response.data.postalCode);
+        setStreetAddress(response.data.streetAddress);
+        setCountry(response.data.country);
+        setAddressLoaded(true);
+      } catch (err) {
+        console.error(err);
+      }
     });
     axios.get("/api/wishlist").then((response) => {
       setWishedProducts(response.data.map((wp) => wp.product));
@@ -100,6 +106,7 @@ export default function AccountPage() {
       return [...products.filter((p) => p._id.toString() !== idToRemove)];
     });
   }
+
   return (
     <>
       <Header />
@@ -125,6 +132,7 @@ export default function AccountPage() {
                     )}
                   </>
                 )}
+
                 {activeTab === "Wishlist" && (
                   <>
                     {!wishlistLoaded && <Spinner fullWidth={true} />}
@@ -143,11 +151,12 @@ export default function AccountPage() {
                               />
                             ))}
                         </WishedProductsGrid>
+
                         {wishedProducts.length === 0 && (
                           <>
                             {session && <p>Your wishlist is empty</p>}
                             {!session && (
-                              <p>Login to add products to your wishlist</p>
+                              <p>Login to add products to your wishlist :D</p>
                             )}
                           </>
                         )}
@@ -161,7 +170,7 @@ export default function AccountPage() {
           <div>
             <RevealWrapper delay={100}>
               <WhiteBox>
-                <h2>{session ? "Account details" : "Login"}</h2>
+                <h2>{session ? "Account Details" : "login"}</h2>
                 {!addressLoaded && <Spinner fullWidth={true} />}
                 {addressLoaded && session && (
                   <>
@@ -209,29 +218,23 @@ export default function AccountPage() {
                       name="country"
                       onChange={(ev) => setCountry(ev.target.value)}
                     />
-                    {/* <Button black block onClick={saveAddress}>
-                      Save
-                    </Button> */}
-                    <CenterSave>
+                    <CenterButton>
                       <Button
-                        onClick={saveAddress}
-                        variant="contained"
-                        color="info"
                         size="small"
+                        variant="contained"
+                        color="success"
+                        onClick={saveAddress}
                       >
                         Save
                       </Button>
-                    </CenterSave>
+                    </CenterButton>
                     <hr />
                   </>
                 )}
                 {session && (
-                  // <Button red outline onClick={logout}>
-                  //   Logout
-                  // </Button>
                   <Button
-                    variant="contained"
                     size="small"
+                    variant="contained"
                     color="error"
                     onClick={logout}
                   >
@@ -239,23 +242,14 @@ export default function AccountPage() {
                   </Button>
                 )}
                 {!session && (
-                  // <Button primary onClick={login}>
-                  //   Login with Google
-                  // </Button>
-                  <Button
-                    variant="contained"
-                    color="info"
-                    size="small"
-                    onClick={login}
-                  >
-                    Login With Google
+                  <Button size="small" variant="contained" onClick={login}>
+                    Login with Google
                   </Button>
                 )}
               </WhiteBox>
             </RevealWrapper>
           </div>
         </ColsWrapper>
-        <ScrollToTopButton />
       </Center>
     </>
   );

@@ -13,26 +13,32 @@ const CategoryHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   h1 {
     font-size: 1.5em;
+    color: #333;
   }
 `;
 const FiltersWrapper = styled.div`
   display: flex;
   gap: 15px;
+  align-items: center;
 `;
 const Filter = styled.div`
   background-color: #ddd;
-  padding: 5px 10px;
+  padding: 8px 12px;
   border-radius: 5px;
   display: flex;
   gap: 5px;
   color: #444;
+  box-shadow: 5px 5px 10px #797979, -5px -5px 10px #ffffff;
+
   select {
     background-color: transparent;
     border: 0;
     font-size: inherit;
     color: #444;
+    cursor: pointer;
   }
 `;
 
@@ -132,13 +138,7 @@ export default function CategoryPage({
                 style={{
                   textAlign: "center",
                   color: "blue",
-                  marginTop: "80px",
-                  borderRadius: "5px",
-                  background: "#fff",
-                  padding: "15px",
-                  cursor: "pointer",
-                  fontWeight: "semi-bold",
-                  boxShadow: "7px 5px 1px 0px rgba(0, 0, 255, 0.5)",
+                  marginTop: "50px",
                 }}
               >
                 Sorry, no products found

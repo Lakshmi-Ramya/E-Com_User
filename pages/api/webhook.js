@@ -1,14 +1,13 @@
 import { mongooseConnect } from "@/lib/mongoose";
+import { Order } from "@/models/Order";
 const stripe = require("stripe")(process.env.STRIPE_SK);
 import { buffer } from "micro";
-import { Order } from "@/models/Order";
-
 const endpointSecret =
-  "whsec_634d3142fd2755bd61adaef74ce0504bd2044848c8aac301ffdb56339a0ca78d";
+  "whsec_a6be2d4f9fe15c6d4ac77fa01d4da2ca781ab7df4b7137dcbe2d0fb6fad04611";
 
 export default async function handler(req, res) {
   await mongooseConnect();
-  const sig = req.headers["stripe-signature"];
+  const sig = request.headers["stripe-signature"];
 
   let event;
 
@@ -28,17 +27,16 @@ export default async function handler(req, res) {
     case "checkout.session.completed":
       const data = event.data.object;
       const orderId = data.metadata.orderId;
+      // const paymentIntentSucceeded = event.data.object;
       const paid = data.payment_status === "paid";
+      console.log(data);
       if (orderId && paid) {
-        await Order.findByIdAndUpdate(orderId, {
-          paid: true,
-        });
+        await Order.findByIdAndUpdate(orderId, { paid: true });
       }
       break;
     default:
       console.log(`Unhandled event type ${event.type}`);
   }
-
   res.status(200).send("ok");
 }
 
@@ -46,5 +44,8 @@ export const config = {
   api: { bodyParser: false },
 };
 
-// bright-thrift-cajole-lean
-// acct_1Lj5ADIUXXMmgk2a
+// devout-regard-upbeat-oasis
+
+// key: acct_1NuHM6SGYECmGUXY
+
+// Your webhook signing secret is whsec_a6be2d4f9fe15c6d4ac77fa01d4da2ca781ab7df4b7137dcbe2d0fb6fad04611

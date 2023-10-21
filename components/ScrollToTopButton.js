@@ -49,7 +49,10 @@ function ScrollToTopButton() {
   };
 
   return (
-    <ScrollButton onClick={scrollToTop} visible={isVisible}>
+    <ScrollButton
+      onClick={scrollToTop}
+      visible={isVisible}
+    >
       <KeyboardArrowUpIcon />
     </ScrollButton>
   );

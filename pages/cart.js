@@ -1,15 +1,14 @@
+import Center from "@/components/Center";
 import Header from "@/components/Header";
 import styled from "styled-components";
-import Center from "@/components/Center";
-import Button from "@/components/Button";
+import Button from "@mui/material/Button";
+import Input from "@/components/Input";
 import { useContext, useEffect, useState } from "react";
 import { CartContext } from "@/components/CartContext";
 import axios from "axios";
 import Table from "@/components/Table";
-import Input from "@/components/Input";
 import { RevealWrapper } from "next-reveal";
 import { useSession } from "next-auth/react";
-import ScrollToTopButton from "@/components/ScrollToTopButton";
 
 const ColumnsWrapper = styled.div`
   display: grid;
@@ -40,10 +39,13 @@ const Box = styled.div`
   background-color: #fff;
   border-radius: 10px;
   padding: 30px;
+  text-align: center;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 `;
 
 const ProductInfoCell = styled.td`
   padding: 10px 0;
+  text-align: left;
   button {
     padding: 0 !important;
   }
@@ -81,7 +83,6 @@ const QuantityLabel = styled.span`
     padding: 0 6px;
   }
 `;
-
 const CityHolder = styled.div`
   display: flex;
   gap: 5px;
@@ -121,19 +122,25 @@ export default function CartPage() {
       setShippingFee(res.data.value);
     });
   }, []);
+
   useEffect(() => {
     if (!session) {
       return;
     }
     axios.get("/api/address").then((response) => {
-      setName(response.data.name);
-      setEmail(response.data.email);
-      setCity(response.data.city);
-      setPostalCode(response.data.postalCode);
-      setStreetAddress(response.data.streetAddress);
-      setCountry(response.data.country);
+      try {
+        setName(response.data.name);
+        setEmail(response.data.email);
+        setCity(response.data.city);
+        setPostalCode(response.data.postalCode);
+        setStreetAddress(response.data.streetAddress);
+        setCountry(response.data.country);
+      } catch (e) {
+        console.error(e);
+      }
     });
   }, [session]);
+
   function moreOfThisProduct(id) {
     addProduct(id);
   }
@@ -154,10 +161,10 @@ export default function CartPage() {
       window.location = response.data.url;
     }
   }
-  let productsTotal = 0;
+  let total = 0;
   for (const productId of cartProducts) {
     const price = products.find((p) => p._id === productId)?.price || 0;
-    productsTotal += price;
+    total += price;
   }
 
   if (isSuccess) {
@@ -183,6 +190,7 @@ export default function CartPage() {
           <RevealWrapper delay={0}>
             <Box>
               <h2>Cart</h2>
+
               {!cartProducts?.length && <div>Your cart is empty</div>}
               {products?.length > 0 && (
                 <Table>
@@ -198,12 +206,23 @@ export default function CartPage() {
                       <tr>
                         <ProductInfoCell>
                           <ProductImageBox>
-                            <img src={product.images[0]} alt="" />
+                            <img src={product.images[0]}></img>
                           </ProductImageBox>
-                          {product.title}
+                          <div
+                            style={{
+                              marginTop: "5px",
+                              fontWeight: "500",
+                            }}
+                          >
+                            {product.title}
+                          </div>
                         </ProductInfoCell>
                         <td>
                           <Button
+                            style={{ padding: "4px 8px" }}
+                            size="small"
+                            variant="outlined"
+                            color="secondary"
                             onClick={() => lessOfThisProduct(product._id)}
                           >
                             -
@@ -215,6 +234,9 @@ export default function CartPage() {
                             }
                           </QuantityLabel>
                           <Button
+                            size="small"
+                            variant="outlined"
+                            color="secondary"
                             onClick={() => moreOfThisProduct(product._id)}
                           >
                             +
@@ -229,7 +251,7 @@ export default function CartPage() {
                     ))}
                     <tr className="subtotal">
                       <td colSpan={2}>Products</td>
-                      <td>₹{productsTotal}</td>
+                      <td>₹{total}</td>
                     </tr>
                     <tr className="subtotal">
                       <td colSpan={2}>Shipping</td>
@@ -237,17 +259,18 @@ export default function CartPage() {
                     </tr>
                     <tr className="subtotal total">
                       <td colSpan={2}>Total</td>
-                      <td>₹{productsTotal + parseInt(shippingFee || 0)}</td>
+                      <td>₹{total + parseInt(shippingFee || 0)}</td>
                     </tr>
                   </tbody>
                 </Table>
               )}
             </Box>
           </RevealWrapper>
+
           {!!cartProducts?.length && (
             <RevealWrapper delay={100}>
               <Box>
-                <h2>Order information</h2>
+                <h2>Order Information</h2>
                 <Input
                   type="text"
                   placeholder="Name"
@@ -292,14 +315,18 @@ export default function CartPage() {
                   name="country"
                   onChange={(ev) => setCountry(ev.target.value)}
                 />
-                <Button black block onClick={goToPayment}>
+                <Button
+                  size="small"
+                  variant="contained"
+                  color="success"
+                  onClick={goToPayment}
+                >
                   Continue to payment
                 </Button>
               </Box>
             </RevealWrapper>
           )}
         </ColumnsWrapper>
-        <ScrollToTopButton />
       </Center>
     </>
   );

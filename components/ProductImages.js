@@ -3,6 +3,7 @@
 import styled from "styled-components";
 import { useState } from "react";
 import ReactImageMagnify from "react-image-magnify";
+import LoupeIcon from "@mui/icons-material/Loupe";
 
 const Image = styled.img`
   max-width: 100%;

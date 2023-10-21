@@ -1,11 +1,12 @@
-import Header from "@/components/Header";
 import Featured from "@/components/Featured";
-import { Product } from "@/models/Product";
-import { mongooseConnect } from "@/lib/mongoose";
+import Header from "@/components/Header";
 import NewProducts from "@/components/NewProducts";
+import { mongooseConnect } from "@/lib/mongoose";
+import { Product } from "@/models/Product";
 import { WishedProduct } from "@/models/WishedProduct";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/pages/api/auth/[...nextauth]";
+import { getSession } from "next-auth/react";
+import { authOptions } from "./api/auth/[...nextauth]";
 import { Setting } from "@/models/Setting";
 
 export default function HomePage({
@@ -17,7 +18,7 @@ export default function HomePage({
     <div>
       <Header />
       <Featured product={featuredProduct} />
-      <NewProducts products={newProducts} wishedProducts={wishedNewProducts} />
+      <NewProducts products={newProducts} wishedProducs={wishedNewProducts} />
     </div>
   );
 }
@@ -27,12 +28,15 @@ export async function getServerSideProps(ctx) {
   const featuredProductSetting = await Setting.findOne({
     name: "featuredProductId",
   });
+  // const featuredProductId = "64e596edd10e722c0cdd8159";
   const featuredProductId = featuredProductSetting.value;
   const featuredProduct = await Product.findById(featuredProductId);
   const newProducts = await Product.find({}, null, {
+    // prettier-ignore
     sort: { _id: -1 },
     limit: 8,
   });
+
   const session = await getServerSession(ctx.req, ctx.res, authOptions);
   const wishedNewProducts = session?.user
     ? await WishedProduct.find({
@@ -40,6 +44,7 @@ export async function getServerSideProps(ctx) {
         product: newProducts.map((p) => p._id.toString()),
       })
     : [];
+
   return {
     props: {
       featuredProduct: JSON.parse(JSON.stringify(featuredProduct)),

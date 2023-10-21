@@ -12,7 +12,7 @@ const StyledTab = styled.span`
     props.active
       ? `
     color:black;
-    border-bottom: 2px solid black;
+    border-bottom: 2px solid blue;
   `
       : `
     color:#999;

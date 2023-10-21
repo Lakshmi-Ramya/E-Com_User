@@ -2,8 +2,8 @@ import styled from "styled-components";
 import Input from "@/components/Input";
 import WhiteBox from "@/components/WhiteBox";
 import StarsRating from "@/components/StarsRating";
-import Textarea from "./TextArea";
-import Button from "@/components/Button";
+// import Button from "@/components/Button";
+import Button from "@mui/material/Button";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Spinner from "@/components/Spinner";
@@ -96,10 +96,18 @@ export default function ProductReviews({ product }) {
             <TextArea
               value={description}
               onChange={(ev) => setDescription(ev.target.value)}
-              placeholder="Your opinion?"
+              placeholder="your opinion?"
             />
             <div>
-              <Button primary onClick={submitReview}>
+              {/* <Button primary onClick={submitReview}>
+                Submit your review
+              </Button> */}
+              <Button
+                size="small"
+                color="success"
+                variant="contained"
+                onClick={submitReview}
+              >
                 Submit your review
               </Button>
             </div>

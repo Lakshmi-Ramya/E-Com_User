@@ -11,7 +11,7 @@ export const ButtonStyle = css`
   text-decoration: none;
   font-family: "Poppins", sans-serif;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 15px;
   svg {
     height: 16px;
     margin-right: 5px;
@@ -21,7 +21,6 @@ export const ButtonStyle = css`
     css`
       display: block;
       width: 100%;
-      padding: 8px;
     `}
   ${(props) =>
     props.white &&
@@ -36,14 +35,6 @@ export const ButtonStyle = css`
     css`
       background-color: transparent;
       color: #fff;
-      border: 1px solid #fff;
-    `}
-    ${(props) =>
-    props.red &&
-    props.outline &&
-    css`
-      background-color: red;
-      color: white;
       border: 1px solid #fff;
     `}
   ${(props) =>

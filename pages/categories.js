@@ -1,17 +1,17 @@
-import Header from "@/components/Header";
 import Center from "@/components/Center";
+import Header from "@/components/Header";
+import Title from "@/components/Title";
 import { Category } from "@/models/Category";
 import { Product } from "@/models/Product";
+import styled from "styled-components";
+import { mongooseConnect } from "@/lib/mongoose";
 import ProductBox from "@/components/ProductBox";
-import styled, { keyframes } from "styled-components";
 import Link from "next/link";
 import { RevealWrapper } from "next-reveal";
-import { mongooseConnect } from "@/lib/mongoose";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/pages/api/auth/[...nextauth]";
-import { WishedProduct } from "@/models/WishedProduct";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
-import ScrollToTopButton from "@/components/ScrollToTopButton";
+import { getServerSession } from "next-auth";
+import { WishedProduct } from "@/models/WishedProduct";
+import { authOptions } from "./api/auth/[...nextauth]";
 
 const CategoryGrid = styled.div`
   display: grid;
@@ -21,13 +21,13 @@ const CategoryGrid = styled.div`
     grid-template-columns: 1fr 1fr 1fr 1fr;
   }
 `;
-
 const CategoryTitle = styled.div`
   display: flex;
   margin-top: 10px;
-  margin-bottom: 0;
+  margin-bottom: 10px;
   align-items: center;
   gap: 10px;
+
   h2 {
     margin-bottom: 10px;
     margin-top: 10px;
@@ -35,6 +35,12 @@ const CategoryTitle = styled.div`
   a {
     color: #555;
     display: inline-block;
+    text-decoration: none;
+    font-size: 12px;
+  }
+  a:hover {
+    color: #000;
+    transition: 0.3s;
   }
 `;
 const CategoryWrapper = styled.div`
@@ -52,20 +58,6 @@ const ShowAllSquare = styled(Link)`
   text-decoration: none;
 `;
 
-const Move = keyframes`
-  0%, 100% {
-    transform: translateX(0px);
-  }
-  50% {
-    transform: translateX(-7px); /* Adjust the distance it moves */
-  }
-`;
-
-const AnimatedDoubleArrowIconTwo = styled(KeyboardDoubleArrowRightIcon)`
-  animation: ${Move} 1s infinite;
-  color: blue;
-`;
-
 export default function CategoriesPage({
   mainCategories,
   categoriesProducts,
@@ -80,34 +72,24 @@ export default function CategoriesPage({
             <CategoryTitle>
               <h2>{cat.name}</h2>
               <div>
-                <Link
-                  style={{
-                    textDecoration: "none",
-                    fontSize: "0.8em",
-                    fontWeight: "bold",
-                  }}
-                  href={"/category/" + cat._id}
-                >
-                  Show all
-                </Link>
+                <Link href={"/category/" + cat._id}>Show all</Link>
               </div>
             </CategoryTitle>
             <CategoryGrid>
-              {categoriesProducts[cat._id].map((p, index) => (
-                <RevealWrapper delay={index * 50}>
-                  <ProductBox {...p} wished={wishedProducts.includes(p._id)} />
-                </RevealWrapper>
+              {categoriesProducts[cat._id].map((p) => (
+                <ProductBox {...p} wished={wishedProducts.includes(p._id)} />
               ))}
-              <RevealWrapper delay={categoriesProducts[cat._id].length * 50}>
+              <RevealWrapper
+                origin="left"
+                delay={categoriesProducts[cat._id].length * 50}
+              >
                 <ShowAllSquare href={"/category/" + cat._id}>
-                  Show All &nbsp;
-                  <AnimatedDoubleArrowIconTwo />
+                  Show all <KeyboardDoubleArrowRightIcon />
                 </ShowAllSquare>
               </RevealWrapper>
             </CategoryGrid>
           </CategoryWrapper>
         ))}
-        <ScrollToTopButton />
       </Center>
     </>
   );
@@ -132,7 +114,6 @@ export async function getServerSideProps(ctx) {
     allFetchedProductsId.push(...products.map((p) => p._id.toString()));
     categoriesProducts[mainCat._id] = products;
   }
-
   const session = await getServerSession(ctx.req, ctx.res, authOptions);
   const wishedProducts = session?.user
     ? await WishedProduct.find({
