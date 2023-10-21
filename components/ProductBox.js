@@ -165,11 +165,6 @@ const ProductWrapper = styled.div`
     text-align: center;
     justify-content: center;
   }
-  // transition: transform 0.2s;
-
-  // &:hover {
-  //   transform: translateY(-10px);
-  // }
 `;
 
 const WhiteBox = styled(Link)`
@@ -213,7 +208,7 @@ const WhiteBox = styled(Link)`
     transform: scale(1.15);
   }
   &:hover:before {
-    opacity: 1; /* Make the glass effect visible on hover */
+    opacity: 1;
   }
 `;
 
