@@ -1,3 +1,5 @@
+// the navbar
+
 import Link from "next/link";
 import styled from "styled-components";
 import Center from "@/components/Center";
