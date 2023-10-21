@@ -183,9 +183,37 @@ const WhiteBox = styled(Link)`
   border-radius: 10px;
   position: relative;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
   img {
     max-width: 100%;
     max-height: 120px;
+    transition: transform 0.2s;
+  }
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      60deg,
+      rgba(0, 0, 0, 0.4),
+      rgba(0, 0, 0, 0.4),
+      rgba(0, 0, 0, 0),
+      rgba(0, 0, 0, 0.2),
+      rgba(0, 0, 0, 0.4)
+    );
+    backdrop-filter: blur(5px);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  &:hover img {
+    transform: scale(1.15);
+  }
+  &:hover:before {
+    opacity: 1; /* Make the glass effect visible on hover */
   }
 `;
 
