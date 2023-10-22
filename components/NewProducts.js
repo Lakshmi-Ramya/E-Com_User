@@ -16,6 +16,7 @@ export default function NewProducts({ products, wishedProducts }) {
     <>
       <Center>
         <Title>New Arrivals</Title>
+        <hr class="border-bottom-line line-fadein-animate fadein" style={{ margin: '20px 0' }}/>
         <ProductsGrid products={products} wishedProducts={wishedProducts} />
       </Center>
       <div className="my-4">

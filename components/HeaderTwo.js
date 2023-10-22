@@ -6,6 +6,7 @@ import Zoom from "react-reveal/Zoom";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 import Accessories from "./Accessories";
+import Support from "./Support";
 import FooterComponent from "./FooterComponent";
 
 const DarkDiv = styled.div`
@@ -142,6 +143,9 @@ export default function HeaderTwo({ product }) {
       <DarkDiv>
         <Accessories />
       </DarkDiv>
+
+      {/* SUPPORT */}
+      <Support />
 
       {/* FOOTER */}
       <FooterComponent />
