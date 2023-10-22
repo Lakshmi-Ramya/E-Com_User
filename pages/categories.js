@@ -56,6 +56,13 @@ const ShowAllSquare = styled(Link)`
   justify-content: center;
   color: #555;
   text-decoration: none;
+  background: linear-gradient(145deg, #cacaca, #f0f0f0);
+  box-shadow: 5px 5px 4px #5a5a5a, -5px -5px 4px #ffffff;
+  &:hover {
+    background: #e0e0e0;
+    box-shadow: -5px -5px 4px #5a5a5a, 5px 5px 4px #ffffff;
+    transition: 0.3s ease-in;
+  }
 `;
 
 export default function CategoriesPage({
@@ -81,10 +88,11 @@ export default function CategoriesPage({
               ))}
               <RevealWrapper
                 origin="left"
-                delay={categoriesProducts[cat._id].length * 50}
+                delay={categoriesProducts[cat._id].length * 30}
               >
                 <ShowAllSquare href={"/category/" + cat._id}>
-                  Show all <KeyboardDoubleArrowRightIcon />
+                  Show All
+                  <KeyboardDoubleArrowRightIcon style={{ color: "blue" }} />
                 </ShowAllSquare>
               </RevealWrapper>
             </CategoryGrid>

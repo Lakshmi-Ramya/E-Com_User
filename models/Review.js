@@ -2,6 +2,7 @@ import { model, models, Schema } from "mongoose";
 
 const reviewSchema = new Schema(
   {
+    custname: String,
     title: String,
     description: String,
     stars: Number,

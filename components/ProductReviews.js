@@ -59,9 +59,12 @@ export default function ProductReviews({ product }) {
   const [stars, setStars] = useState(0);
   const [reviews, setReviews] = useState([]);
   const [reviewsLoading, setReviewsLoading] = useState(false);
+  const [custname, setcustName] = useState("");
+
   function submitReview() {
-    const data = { title, description, stars, product: product._id };
+    const data = { custname, title, description, stars, product: product._id };
     axios.post("/api/reviews", data).then((res) => {
+      setcustName("");
       setTitle("");
       setDescription("");
       setStars(0);
@@ -88,6 +91,13 @@ export default function ProductReviews({ product }) {
             <div>
               <StarsRating onChange={setStars} />
             </div>
+            <br></br>
+            <Input
+              value={custname}
+              onChange={(ev) => setcustName(ev.target.value)}
+              placeholder="Name"
+            />
+
             <Input
               value={title}
               onChange={(ev) => setTitle(ev.target.value)}
@@ -131,6 +141,7 @@ export default function ProductReviews({ product }) {
                       {new Date(review.createdAt).toLocaleString("sv-SE")}
                     </time>
                   </ReviewHeader>
+                  <h2>{review.custname}</h2>
                   <h3>{review.title}</h3>
                   <p>{review.description}</p>
                 </ReviewWrapper>
