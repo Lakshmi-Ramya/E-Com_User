@@ -81,12 +81,12 @@ export default function AccountPage() {
 
     axios.get("/api/address").then((response) => {
       try {
-        setName(response.data.name);
-        setEmail(response.data.email);
-        setCity(response.data.city);
-        setPostalCode(response.data.postalCode);
-        setStreetAddress(response.data.streetAddress);
-        setCountry(response.data.country);
+        setName(response.data?.name);
+        setEmail(response.data?.email);
+        setCity(response.data?.city);
+        setPostalCode(response.data?.postalCode);
+        setStreetAddress(response.data?.streetAddress);
+        setCountry(response.data?.country);
         setAddressLoaded(true);
       } catch (err) {
         console.error(err);

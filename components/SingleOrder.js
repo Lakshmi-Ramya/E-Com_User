@@ -22,7 +22,7 @@ const StyledOrder = styled.div`
   }
 
   &:hover {
-    animation: tilt 1s alternate;
+    animation: tilt 1s infinite alternate;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     background: linear-gradient(to right, #d5d5d5, white 100%, grey);
   }

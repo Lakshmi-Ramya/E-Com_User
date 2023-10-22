@@ -1,5 +1,4 @@
 // when clicked on the product this opens up
-
 import Center from "@/components/Center";
 import Header from "@/components/Header";
 import Title from "@/components/Title";

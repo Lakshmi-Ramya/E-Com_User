@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <button onclick="generatePDF()">Generate Receipt</button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
+    <script>
+      function generatePDF() {
+        var doc = new jsPDF();
+        doc.setFontSize(22);
+        doc.text("Receipt", 10, 20);
+        doc.setFontSize(16);
+        doc.text("Product: Example Product", 10, 30);
+        doc.text("Quantity: 2", 10, 40);
+        doc.text("Price: $10", 10, 50);
+        doc.text("Total: $20", 10, 60);
+        doc.save("receipt.pdf");
+      }
+    </script>
+  </body>
+</html>
