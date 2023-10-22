@@ -60,9 +60,9 @@ function Accessories() {
   const products = [
     {
       id: 1,
-      title: "Oneplus SUPERVOOC Type-A to Type-C Cable",
-      price: "₹849",
-      imageSrc: "./images/oneplus cable.png",
+      title: "Portronics Adapto Type C 20w Charger for Android",
+      price: "₹399",
+      imageSrc: "./images/41AHEO-ofUL._SX679_-removebg-preview.png",
     },
     {
       id: 2,
@@ -72,15 +72,15 @@ function Accessories() {
     },
     {
       id: 3,
-      title: "OnePlus 18W Phone Cooler",
-      price: "₹3,299",
-      imageSrc: "./images/cooler oneplus.png",
+      title: "Portronics Clamp M2 Adjustable Car Mobile Phone Holder Stand",
+      price: "₹252",
+      imageSrc: "./images/41H7NUu_b4L._SX679_-removebg-preview.png",
     },
     {
       id: 4,
-      title: "NSinc - Adjustable Laptop Cooling Pad",
-      price: "₹999",
-      imageSrc: "./images/laptop cooler.webp",
+      title: "New Apple AirTag",
+      price: "₹3,490",
+      imageSrc: "./images/71L5lSfJIPS._SX679_-removebg-preview.png",
     },
   ];
 
