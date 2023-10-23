@@ -144,7 +144,11 @@ export default function HeaderTwo({ product }) {
       </div>
 
       {/* Display DiscountBanner as an image */}
-      <DiscountBanner src="./images/Group_1.png" alt="Discount Banner" />
+      <DiscountBanner
+        src="./images/Group_1.png"
+        alt="Discount Banner"
+        style={{ width: "100%" }}
+      />
 
       {/* ACCESORIES */}
       <DarkDiv>
