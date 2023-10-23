@@ -72,7 +72,7 @@ export default function HeaderTwo({ product }) {
       </LightDiv>
 
       {/* Applewatch series 19 section */}
-      <DarkDiv>
+      {/* <DarkDiv>
         <img
           style={{ width: "220px" }}
           src="../images/apple watch cropped bg.png"
@@ -92,7 +92,7 @@ export default function HeaderTwo({ product }) {
         <Zoom duration={2500} delay={200}>
           <img src="./images/applewatch.png" alt="Series 9" className="image" />
         </Zoom>
-      </DarkDiv>
+      </DarkDiv> */}
 
       {/* Carousel section */}
       <div

@@ -9,6 +9,8 @@ import axios from "axios";
 import Table from "@/components/Table";
 import { RevealWrapper } from "next-reveal";
 import { useSession } from "next-auth/react";
+import countryData from "country-data";
+import { Select } from "@mui/material";
 
 const ColumnsWrapper = styled.div`
   display: grid;
@@ -101,6 +103,8 @@ export default function CartPage() {
   const [country, setCountry] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
   const [shippingFee, setShippingFee] = useState(null);
+  const [phoneNumber, setPhoneNumber] = useState("");
+
   useEffect(() => {
     if (cartProducts.length > 0) {
       axios.post("/api/cart", { ids: cartProducts }).then((response) => {
@@ -277,6 +281,13 @@ export default function CartPage() {
                   value={name}
                   name="name"
                   onChange={(ev) => setName(ev.target.value)}
+                />
+                <Input
+                  type="text"
+                  placeholder="Phone Number"
+                  value={phoneNumber}
+                  name="phoneNumber"
+                  onChange={(ev) => setPhoneNumber(ev.target.value)}
                 />
                 <Input
                   type="text"
