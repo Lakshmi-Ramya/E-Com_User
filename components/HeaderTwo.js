@@ -12,7 +12,7 @@ import FooterComponent from "./FooterComponent";
 const DarkDiv = styled.div`
   background-color: black;
   color: #fff;
-  padding: 20px;
+  padding: 10px;
   text-align: center;
   max-width: 100% !important;
   margin-top: 0px;
@@ -46,7 +46,11 @@ const CarouselImage = styled.img`
   max-height: 100%;
   object-fit: cover;
 `;
-
+const DiscountBanner = styled.img`
+  max-width: 100%;
+  max-height: 100%;
+  margin: 0px;
+`;
 export default function HeaderTwo({ product }) {
   return (
     <>
@@ -92,7 +96,7 @@ export default function HeaderTwo({ product }) {
         <Zoom duration={2500} delay={200}>
           <img src="./images/applewatch.png" alt="Series 9" className="image" />
         </Zoom>
-      </DarkDiv> */}
+      </DarkDiv>
 
       {/* Carousel section */}
       <div
@@ -138,6 +142,9 @@ export default function HeaderTwo({ product }) {
           </div>
         </Carousel>
       </div>
+
+      {/* Display DiscountBanner as an image */}
+      <DiscountBanner src="./images/Group_1.png" alt="Discount Banner" />
 
       {/* ACCESORIES */}
       <DarkDiv>
