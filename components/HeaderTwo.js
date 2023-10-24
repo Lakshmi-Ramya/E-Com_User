@@ -9,17 +9,11 @@ import Accessories from "./Accessories";
 import Support from "./Support";
 import FooterComponent from "./FooterComponent";
 import keyframes from "styled-components";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import Slider from "react-slick";
 
-// const DarkDiv = styled.div`
-//   background-color: black;
-//   color: #fff;
-//   padding: 10px;
-//   text-align: center;
-//   max-width: 100% !important;
-//   margin-top: 0px;
-// `;
 const DarkDiv = styled.div`
-  background: linear-gradient(-180deg, #333, #111, #050921);
+  background: linear-gradient(-180deg, #333, #111, #050921, #050921);
   color: #fff;
   padding: 10px;
   text-align: center;
@@ -39,6 +33,15 @@ const DarkDiv = styled.div`
       background-position: 0% 50%;
     }
   }
+`;
+
+const DarkDivTwo = styled.div`
+  background: linear-gradient(0deg, #333, #111, #050921, #050921);
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+  max-width: 100% !important;
+  margin-top: 0px;
 `;
 
 const LightDiv = styled.div`
@@ -67,13 +70,21 @@ const TextButtons = styled.div`
 
 const CarouselImage = styled.img`
   max-width: 100%;
-  max-height: 100%;
+  height: 100%;
   object-fit: cover;
 `;
 const DiscountBanner = styled.img`
   max-width: 100%;
-  max-height: 100%;
+  height: 100%;
   margin: 0px;
+`;
+
+const CarouselContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  max-height: 1500px; /* Adjust the max-height as needed */
 `;
 export default function HeaderTwo({ product }) {
   return (
@@ -124,23 +135,17 @@ export default function HeaderTwo({ product }) {
 
       {/* Carousel section */}
 
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          marginTop: "0px",
-          marginBottom: "0px",
-        }}
-      >
+      <CarouselContainer>
         <Carousel
           showArrows={true}
-          autoPlay={true}
+          autoPlay={false}
           infiniteLoop={true}
           swipeable={true}
           useKeyboardArrows={true}
           showStatus={false}
           showThumbs={false}
-          interval={6000}
+          interval={8000}
+          showIndicators={true}
         >
           <div>
             <CarouselImage
@@ -167,10 +172,10 @@ export default function HeaderTwo({ product }) {
             />
           </div>
         </Carousel>
-      </div>
+      </CarouselContainer>
 
       {/* Display DiscountBanner as an image */}
-      <DarkDiv>
+      <DarkDivTwo>
         <DiscountBanner
           src="./images/Group_1.png"
           alt="Discount Banner"
@@ -180,7 +185,7 @@ export default function HeaderTwo({ product }) {
         {/* ACCESORIES */}
 
         <Accessories />
-      </DarkDiv>
+      </DarkDivTwo>
 
       {/* SUPPORT */}
       <Support />

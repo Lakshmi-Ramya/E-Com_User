@@ -17,6 +17,8 @@ const GlobalStyles = createGlobalStyle`
     bottom: 0;
     margin-top: 0;
     padding: 5px;
+    margin-bottom: none;
+    
   }
   .carousel .control-dots .dot{
     background-color: cyan!important;
