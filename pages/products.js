@@ -9,6 +9,7 @@ import { RevealWrapper } from "next-reveal";
 import { authOptions } from "./api/auth/[...nextauth]";
 import { WishedProduct } from "@/models/WishedProduct";
 import { getServerSession } from "next-auth";
+import ScrollToTopButton from "@/components/ScrollToTopButton";
 
 export default function ProductsPage({ products, wishedProducts }) {
   return (
@@ -17,8 +18,9 @@ export default function ProductsPage({ products, wishedProducts }) {
       <Center>
         <Title>All products</Title>
         <RevealWrapper origin="left">
-        <ProductsGrid products={products} wishedProducts = {wishedProducts}/>
+          <ProductsGrid products={products} wishedProducts={wishedProducts} />
         </RevealWrapper>
+        <ScrollToTopButton />
       </Center>
     </>
   );
@@ -29,15 +31,15 @@ export async function getServerSideProps(ctx) {
   const products = await Product.find({}, null, { sort: { _id: -1 } });
   const session = await getServerSession(ctx.req, ctx.res, authOptions);
   const wishedProducts = session?.user
-      ? await WishedProduct.find({
-          userEmail:session?.user.email,
-          product: products.map(p => p._id.toString()),
-        })
-      : [];
+    ? await WishedProduct.find({
+        userEmail: session?.user.email,
+        product: products.map((p) => p._id.toString()),
+      })
+    : [];
   return {
     props: {
       products: JSON.parse(JSON.stringify(products)),
-      wishedProducts: wishedProducts.map(i => i.product.toString()),
+      wishedProducts: wishedProducts.map((i) => i.product.toString()),
     },
   };
 }

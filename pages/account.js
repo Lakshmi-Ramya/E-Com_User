@@ -57,6 +57,7 @@ export default function AccountPage() {
   const [orders, setOrders] = useState([]);
   const [orderLoaded, setOrderLoaded] = useState(true);
   const [showAlert, setShowAlert] = useState(false);
+  const [phoneNumber, setPhoneNumber] = useState("");
 
   async function logout() {
     await signOut({
@@ -67,7 +68,15 @@ export default function AccountPage() {
     await signIn("google");
   }
   function saveAddress() {
-    const data = { name, email, city, streetAddress, postalCode, country };
+    const data = {
+      name,
+      phoneNumber,
+      email,
+      city,
+      streetAddress,
+      postalCode,
+      country,
+    };
     axios.put("/api/address", data);
     alert("Account details saved and updated successfully!");
   }
@@ -82,6 +91,7 @@ export default function AccountPage() {
     axios.get("/api/address").then((response) => {
       try {
         setName(response.data?.name);
+        setPhoneNumber(response.data?.phoneNumber);
         setEmail(response.data?.email);
         setCity(response.data?.city);
         setPostalCode(response.data?.postalCode);
@@ -180,6 +190,13 @@ export default function AccountPage() {
                       value={name}
                       name="name"
                       onChange={(ev) => setName(ev.target.value)}
+                    />
+                    <Input
+                      type="text"
+                      placeholder="Phone Number"
+                      value={phoneNumber}
+                      name="phoneNumber"
+                      onChange={(ev) => setPhoneNumber(ev.target.value)}
                     />
                     <Input
                       type="text"

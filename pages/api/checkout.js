@@ -14,6 +14,7 @@ export default async function handler(req, res) {
   const {
     name,
     email,
+    phoneNumber,
     city,
     postalCode,
     streetAddress,
@@ -47,6 +48,7 @@ export default async function handler(req, res) {
   const orderDoc = await Order.create({
     line_items,
     name,
+    phoneNumber,
     email,
     city,
     postalCode,

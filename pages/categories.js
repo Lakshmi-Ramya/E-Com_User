@@ -12,6 +12,7 @@ import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArro
 import { getServerSession } from "next-auth";
 import { WishedProduct } from "@/models/WishedProduct";
 import { authOptions } from "./api/auth/[...nextauth]";
+import ScrollToTopButton from "@/components/ScrollToTopButton";
 
 const CategoryGrid = styled.div`
   display: grid;
@@ -98,6 +99,7 @@ export default function CategoriesPage({
             </CategoryGrid>
           </CategoryWrapper>
         ))}
+        <ScrollToTopButton />
       </Center>
     </>
   );

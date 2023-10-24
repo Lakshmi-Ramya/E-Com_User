@@ -76,6 +76,8 @@ export default function SingleOrder({ line_items, createdAt, ...rest }) {
         <Address>
           {rest.name}
           <br />
+          {rest.phoneNumber}
+          <br />
           {rest.email}
           <br />
           {rest.streetAddress}

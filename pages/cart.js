@@ -11,6 +11,7 @@ import { RevealWrapper } from "next-reveal";
 import { useSession } from "next-auth/react";
 import countryData from "country-data";
 import { Select } from "@mui/material";
+import CancelIcon from "@mui/icons-material/Cancel";
 
 const ColumnsWrapper = styled.div`
   display: grid;
@@ -90,6 +91,29 @@ const CityHolder = styled.div`
   gap: 5px;
 `;
 
+const Notification = styled.div`
+  position: fixed;
+  top: 50px;
+  right: 50px;
+  background-color: rgba(51, 51, 51, 0.8); /* Darkish and semi-transparent */
+  color: #fff;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+`;
+
+const NotificationButton = styled.button`
+  background-color: transparent;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+`;
+
 export default function CartPage() {
   const { cartProducts, addProduct, removeProduct, clearCart } =
     useContext(CartContext);
@@ -104,6 +128,18 @@ export default function CartPage() {
   const [isSuccess, setIsSuccess] = useState(false);
   const [shippingFee, setShippingFee] = useState(null);
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [showNotification, setShowNotification] = useState(false);
+
+  const closeNotification = () => {
+    setShowNotification(false);
+  };
+
+  useEffect(() => {
+    if (!session && !phoneNumber) {
+      // Show the notification
+      setShowNotification(true);
+    }
+  }, [session, phoneNumber]);
 
   useEffect(() => {
     if (cartProducts.length > 0) {
@@ -134,6 +170,7 @@ export default function CartPage() {
     axios.get("/api/address").then((response) => {
       try {
         setName(response.data.name);
+        setPhoneNumber(response.data.phoneNumber);
         setEmail(response.data.email);
         setCity(response.data.city);
         setPostalCode(response.data.postalCode);
@@ -154,6 +191,7 @@ export default function CartPage() {
   async function goToPayment() {
     const response = await axios.post("/api/checkout", {
       name,
+      phoneNumber,
       email,
       city,
       postalCode,
@@ -339,6 +377,20 @@ export default function CartPage() {
           )}
         </ColumnsWrapper>
       </Center>
+      {showNotification && (
+        <Notification>
+          <div className="notification-content">
+            <br />
+            <p>
+              Please provide your phone number so that we can reach you. This
+              information is required since you are not currently logged in.
+            </p>
+            <NotificationButton onClick={closeNotification}>
+              <CancelIcon />
+            </NotificationButton>
+          </div>
+        </Notification>
+      )}
     </>
   );
 }
