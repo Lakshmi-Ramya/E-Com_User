@@ -10,6 +10,8 @@ import FlyingButton from "@/components/FlyingButton";
 import HeartOutlineIcon from "@/components/icons/HeartOutlineIcon";
 import HeartSolidIcon from "@/components/icons/HeartSolidIcon";
 import axios from "axios";
+import LoginPopup from "./LoginPopup";
+import { useSession } from "next-auth/react";
 
 const ProductWrapper = styled.div`
   button {
@@ -133,20 +135,43 @@ export default function ProductBox({
 }) {
   const url = "/product/" + _id;
   const [isWished, setIsWished] = useState(wished);
+  // new state
+  const [showLoginPopup, setShowLoginPopup] = useState(false);
+  const { data: session } = useSession();
+
   function addToWishlist(ev) {
     ev.preventDefault();
     ev.stopPropagation();
     const nextValue = !isWished;
-    if (nextValue === false && onRemoveFromWishlist) {
-      onRemoveFromWishlist(_id);
+    // new addition
+    // const isUserSignedIn = false;
+    //   if (nextValue === false && onRemoveFromWishlist) {
+    //     onRemoveFromWishlist(_id);
+    //   }
+    //   axios
+    //     .post("/api/wishlist", {
+    //       product: _id,
+    //     })
+    //     .then(() => {});
+    //   setIsWished(nextValue);
+    // }
+
+    if (!session) {
+      // If the user is not signed in, show the login pop-up
+      setShowLoginPopup(true);
+    } else {
+      if (nextValue === false && onRemoveFromWishlist) {
+        onRemoveFromWishlist(_id);
+      }
+      axios
+        .post("/api/wishlist", {
+          product: _id,
+        })
+        .then(() => {});
+      setIsWished(nextValue);
     }
-    axios
-      .post("/api/wishlist", {
-        product: _id,
-      })
-      .then(() => {});
-    setIsWished(nextValue);
   }
+
   return (
     <ProductWrapper>
       <WhiteBox href={url}>
@@ -166,6 +191,12 @@ export default function ProductBox({
           </FlyingButton>
         </PriceRow>
       </ProductInfoBox>
+      {showLoginPopup && (
+        <LoginPopup
+          message="Login to add products to your wishlist"
+          onClose={() => setShowLoginPopup(false)}
+        />
+      )}
     </ProductWrapper>
   );
 }
