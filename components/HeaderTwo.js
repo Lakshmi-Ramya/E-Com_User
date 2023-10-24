@@ -76,7 +76,7 @@ export default function HeaderTwo({ product }) {
       </LightDiv>
 
       {/* Applewatch series 19 section */}
-      {/* <DarkDiv>
+      <DarkDiv>
         <img
           style={{ width: "220px" }}
           src="../images/apple watch cropped bg.png"
