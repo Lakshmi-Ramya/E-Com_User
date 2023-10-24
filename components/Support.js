@@ -49,7 +49,7 @@ export default function FooterComponent() {
       <Support>
         <Center>
           <Title>Support</Title>
-          <RevealWrapper origin="left" duration={2000}>
+          <RevealWrapper origin="left">
             <hr />
           </RevealWrapper>
         </Center>

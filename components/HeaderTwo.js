@@ -8,15 +8,39 @@ import { Carousel } from "react-responsive-carousel";
 import Accessories from "./Accessories";
 import Support from "./Support";
 import FooterComponent from "./FooterComponent";
+import keyframes from "styled-components";
 
+// const DarkDiv = styled.div`
+//   background-color: black;
+//   color: #fff;
+//   padding: 10px;
+//   text-align: center;
+//   max-width: 100% !important;
+//   margin-top: 0px;
+// `;
 const DarkDiv = styled.div`
-  background-color: black;
+  background: linear-gradient(-180deg, #333, #111, #050921);
   color: #fff;
   padding: 10px;
   text-align: center;
   max-width: 100% !important;
   margin-top: 0px;
+  // background-size: 200% 200%;
+  // animation: gradientAnimation 8s alternate infinite;
+
+  @keyframes gradientAnimation {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
 `;
+
 const LightDiv = styled.div`
   background-color: #fff;
   color: black;
@@ -99,11 +123,13 @@ export default function HeaderTwo({ product }) {
       </DarkDiv>
 
       {/* Carousel section */}
+
       <div
         style={{
           display: "flex",
           justifyContent: "center",
           marginTop: "0px",
+          marginBottom: "0px",
         }}
       >
         <Carousel
@@ -144,14 +170,15 @@ export default function HeaderTwo({ product }) {
       </div>
 
       {/* Display DiscountBanner as an image */}
-      <DiscountBanner
-        src="./images/Group_1.png"
-        alt="Discount Banner"
-        style={{ width: "100%" }}
-      />
-
-      {/* ACCESORIES */}
       <DarkDiv>
+        <DiscountBanner
+          src="./images/Group_1.png"
+          alt="Discount Banner"
+          style={{ width: "100%" }}
+        />
+
+        {/* ACCESORIES */}
+
         <Accessories />
       </DarkDiv>
 

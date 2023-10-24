@@ -4,6 +4,7 @@ import Center from "@/components/Center";
 import ProductsGrid from "@/components/ProductsGrid";
 import ScrollToTopButton from "./ScrollToTopButton";
 import HeaderTwo from "./HeaderTwo";
+import { RevealWrapper } from "next-reveal";
 
 const Title = styled.h2`
   font-size: 2rem;
@@ -16,7 +17,9 @@ export default function NewProducts({ products, wishedProducts }) {
     <>
       <Center>
         <Title>New Arrivals</Title>
-        <hr class="border-bottom-line line-fadein-animate fadein" style={{ margin: '20px 0' }}/>
+        <RevealWrapper origin="left">
+          <hr />
+        </RevealWrapper>
         <ProductsGrid products={products} wishedProducts={wishedProducts} />
       </Center>
       <div className="my-4">
