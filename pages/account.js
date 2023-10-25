@@ -14,6 +14,7 @@ import ProductBox from "@/components/ProductBox";
 import Tabs from "@/components/Tabs";
 import SingleOrder from "@/components/SingleOrder";
 import ScrollToTopButton from "@/components/ScrollToTopButton";
+import Receipt from "@/components/Receipt";
 
 const ColsWrapper = styled.div`
   display: grid;
@@ -63,6 +64,15 @@ export default function AccountPage() {
   const [orderLoaded, setOrderLoaded] = useState(true);
   const [showAlert, setShowAlert] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [selectedOrder, setSelectedOrder] = useState(null);
+  const [receiptVisible, setReceiptVisible] = useState(false);
+
+  // to show the receipt
+  const showReceipt = (order) => {
+    setSelectedOrder(order);
+    setReceiptVisible(true);
+  };
+
   const [errors, setErrors] = useState({
     name: "",
     phoneNumber: "",
@@ -214,9 +224,10 @@ export default function AccountPage() {
                       <div>
                         {orders.length === 0 && <p>Login to see your orders</p>}
                         {orders.length > 0 &&
-                          orders.map((o) => <SingleOrder {...o} />)}
+                          orders.map((o) => <SingleOrder key={o._id} {...o} />)}
                       </div>
                     )}
+                    {/* {selectedOrder && <Receipt order={selectedOrder} />} */}
                   </>
                 )}
 
@@ -276,7 +287,9 @@ export default function AccountPage() {
                       name="phoneNumber"
                       onChange={handlePhoneNumberChange}
                     />
-                    {errors.phoneNumber && <ErrorMessage>{errors.phoneNumber}</ErrorMessage>}
+                    {errors.phoneNumber && (
+                      <ErrorMessage>{errors.phoneNumber}</ErrorMessage>
+                    )}
                     <Input
                       type="text"
                       placeholder="Email"
@@ -284,7 +297,9 @@ export default function AccountPage() {
                       name="email"
                       onChange={handleEmailChange}
                     />
-                    {errors.email && <ErrorMessage>{errors.email}</ErrorMessage>}
+                    {errors.email && (
+                      <ErrorMessage>{errors.email}</ErrorMessage>
+                    )}
                     <CityHolder>
                       <Input
                         type="text"
