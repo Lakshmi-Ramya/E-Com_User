@@ -161,6 +161,15 @@ const ProductRow = styled.div`
   }
 `;
 
+const GenPdf = styled.button`
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: blue;
+  color: white;
+  padding: 5px;
+`;
+
 function generatePDF(data) {
   const doc = new jsPDF();
 
@@ -231,32 +240,36 @@ function generatePDF(data) {
 
 export default function SingleOrder({ line_items, createdAt, ...rest }) {
   return (
-    <StyledOrder>
-      <OrderInfo>
-        <OrderDate>{new Date(createdAt).toLocaleString("sv-SE")}</OrderDate>
-        <Address>
-          {rest.name}
-          <br />
-          {rest.phoneNumber}
-          <br />
-          {rest.email}
-          <br />
-          {rest.streetAddress}
-          <br />
-          {rest.postalCode}, {rest.city}, {rest.country}, {rest.price_data}
-        </Address>
-      </OrderInfo>
-      <Products>
-        {line_items.map((item, index) => (
-          <ProductRow key={index}>
-            <span>{item.quantity} x </span>
-            {item.price_data.product_data.name}
-          </ProductRow>
-        ))}
-      </Products>
-      <button onClick={() => generatePDF({ line_items, createdAt, ...rest })}>
-        Generate PDF
-      </button>
-    </StyledOrder>
+    <>
+      <StyledOrder
+        onClick={() => generatePDF({ line_items, createdAt, ...rest })}
+      >
+        <OrderInfo>
+          <OrderDate>{new Date(createdAt).toLocaleString("sv-SE")}</OrderDate>
+          <Address>
+            {rest.name}
+            <br />
+            {rest.phoneNumber}
+            <br />
+            {rest.email}
+            <br />
+            {rest.streetAddress}
+            <br />
+            {rest.postalCode}, {rest.city}, {rest.country}
+          </Address>
+        </OrderInfo>
+        <Products>
+          {line_items.map((item, index) => (
+            <ProductRow key={index}>
+              <span>{item.quantity}x </span>
+              {item.price_data.product_data.name}
+            </ProductRow>
+          ))}
+        </Products>
+        {/* <GenPdf onClick={() => generatePDF({ line_items, createdAt, ...rest })}>
+          Generate Invoice
+        </GenPdf> */}
+      </StyledOrder>
+    </>
   );
 }
