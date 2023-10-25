@@ -12,6 +12,7 @@ import { useSession } from "next-auth/react";
 import countryData from "country-data";
 import { Select } from "@mui/material";
 import CancelIcon from "@mui/icons-material/Cancel";
+import ScrollToTopButton from "@/components/ScrollToTopButton";
 
 const ColumnsWrapper = styled.div`
   display: grid;
@@ -376,6 +377,7 @@ export default function CartPage() {
             </RevealWrapper>
           )}
         </ColumnsWrapper>
+        <ScrollToTopButton />
       </Center>
       {showNotification && (
         <Notification>
