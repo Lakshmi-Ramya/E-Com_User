@@ -242,7 +242,10 @@ export default function SingleOrder({ line_items, createdAt, ...rest }) {
   return (
     <>
       <StyledOrder
-        onClick={() => generatePDF({ line_items, createdAt, ...rest })}
+        onClick={() => {
+          generatePDF({ line_items, createdAt, ...rest });
+          alert("PDF generated successfully!");
+        }}
       >
         <OrderInfo>
           <OrderDate>{new Date(createdAt).toLocaleString("sv-SE")}</OrderDate>

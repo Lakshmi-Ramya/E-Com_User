@@ -48,6 +48,31 @@ const ErrorMessage = styled.div`
   color: red;
   font-size: 14px;
 `;
+
+const Notification = styled.div`
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 8px;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  text-align: center;
+  z-index: 999;
+  max-height: 100%;
+  max-width: 100%;
+  padding: 50px;
+`;
+const NotifButton = styled.div`
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 8px;
+`;
+
 export default function AccountPage() {
   const { data: session } = useSession();
   const [name, setName] = useState("");
@@ -62,16 +87,19 @@ export default function AccountPage() {
   const [activeTab, setActiveTab] = useState("Orders");
   const [orders, setOrders] = useState([]);
   const [orderLoaded, setOrderLoaded] = useState(true);
-  const [showAlert, setShowAlert] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [selectedOrder, setSelectedOrder] = useState(null);
-  const [receiptVisible, setReceiptVisible] = useState(false);
+  const [showNotification, setShowNotification] = useState(true);
 
-  // to show the receipt
-  const showReceipt = (order) => {
-    setSelectedOrder(order);
-    setReceiptVisible(true);
-  };
+  // notification
+  useEffect(() => {
+    const notificationTimeout = setTimeout(() => {
+      setShowNotification(false);
+    }, 5000);
+
+    return () => {
+      clearTimeout(notificationTimeout);
+    };
+  }, []);
 
   const [errors, setErrors] = useState({
     name: "",
@@ -207,6 +235,16 @@ export default function AccountPage() {
   return (
     <>
       <Header />
+      {showNotification && (
+        <Notification>
+          <p>Click on any of your orders to generate an invoice</p>
+          <NotifButton onClick={() => setShowNotification(false)}>
+            Close
+          </NotifButton>
+        </Notification>
+      )}
+
+      {/* The rest of your component code */}
       <Center>
         <ColsWrapper>
           <div>
