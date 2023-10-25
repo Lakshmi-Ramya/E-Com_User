@@ -43,6 +43,10 @@ const CenterButton = styled.div`
   text-align: center;
   justify-content: center;
 `;
+const ErrorMessage = styled.div`
+  color: red;
+  font-size: 14px;
+`;
 export default function AccountPage() {
   const { data: session } = useSession();
   const [name, setName] = useState("");
@@ -59,6 +63,23 @@ export default function AccountPage() {
   const [orderLoaded, setOrderLoaded] = useState(true);
   const [showAlert, setShowAlert] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [errors, setErrors] = useState({
+    name: "",
+    phoneNumber: "",
+    email: "",
+  });
+
+  const handleNameChange = (event) => {
+    setName(event.target.value);
+  };
+
+  const handlePhoneNumberChange = (event) => {
+    setPhoneNumber(event.target.value);
+  };
+
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
 
   async function logout() {
     await signOut({
@@ -69,6 +90,52 @@ export default function AccountPage() {
     await signIn("google");
   }
   function saveAddress() {
+    let hasError = false;
+
+    if (!name) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        name: "Name is required",
+      }));
+      hasError = true;
+    } else {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        name: "",
+      }));
+    }
+
+    if (!validatePhoneNumber(phoneNumber)) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        phoneNumber: "Invalid phone number (10 digits)",
+      }));
+      hasError = true;
+    } else {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        phoneNumber: "",
+      }));
+    }
+
+    if (!validateEmail(email)) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        email: "Invalid email address",
+      }));
+      hasError = true;
+    } else {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        email: "",
+      }));
+    }
+
+    if (hasError) {
+      // Handle validation errors here or prevent form submission
+      return;
+    }
+
     const data = {
       name,
       phoneNumber,
@@ -81,6 +148,15 @@ export default function AccountPage() {
     axios.put("/api/address", data);
     alert("Account details saved and updated successfully!");
   }
+  const validateEmail = (email) => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+  };
+
+  const validatePhoneNumber = (phoneNumber) => {
+    const re = /^\d{10}$/;
+    return re.test(phoneNumber);
+  };
   useEffect(() => {
     if (!session) {
       return;
@@ -190,22 +266,25 @@ export default function AccountPage() {
                       placeholder="Name"
                       value={name}
                       name="name"
-                      onChange={(ev) => setName(ev.target.value)}
+                      onChange={handleNameChange}
                     />
+                    {errors.name && <ErrorMessage>{errors.name}</ErrorMessage>}
                     <Input
                       type="text"
                       placeholder="Phone Number"
                       value={phoneNumber}
                       name="phoneNumber"
-                      onChange={(ev) => setPhoneNumber(ev.target.value)}
+                      onChange={handlePhoneNumberChange}
                     />
+                    {errors.phoneNumber && <ErrorMessage>{errors.phoneNumber}</ErrorMessage>}
                     <Input
                       type="text"
                       placeholder="Email"
                       value={email}
                       name="email"
-                      onChange={(ev) => setEmail(ev.target.value)}
+                      onChange={handleEmailChange}
                     />
+                    {errors.email && <ErrorMessage>{errors.email}</ErrorMessage>}
                     <CityHolder>
                       <Input
                         type="text"

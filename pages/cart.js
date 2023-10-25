@@ -87,6 +87,7 @@ const QuantityLabel = styled.span`
     padding: 0 6px;
   }
 `;
+
 const CityHolder = styled.div`
   display: flex;
   gap: 5px;
@@ -114,10 +115,22 @@ const NotificationButton = styled.button`
   top: 10px;
   right: 10px;
 `;
+const Form = styled.form`
+  display: grid;
+  gap: 20px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+`;
+
+const ErrorMessage = styled.div`
+  color: red;
+  font-size: 14px;
+`;
 
 export default function CartPage() {
-  const { cartProducts, addProduct, removeProduct, clearCart } =
-    useContext(CartContext);
+  const { cartProducts, addProduct, removeProduct, clearCart } = useContext(CartContext);
   const { data: session } = useSession();
   const [products, setProducts] = useState([]);
   const [name, setName] = useState("");
@@ -130,6 +143,69 @@ export default function CartPage() {
   const [shippingFee, setShippingFee] = useState(null);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [showNotification, setShowNotification] = useState(false);
+  const [errors, setErrors] = useState({
+    email: "",
+    phoneNumber: "",
+    name: "",
+  });
+
+  const validateEmail = (email) => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+  };
+
+  const validatePhoneNumber = (phoneNumber) => {
+    const re = /^\d{10}$/;
+    return re.test(phoneNumber);
+  };
+
+  const handleEmailChange = (event) => {
+    const email = event.target.value;
+    setEmail(email);
+    if (!validateEmail(email)) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        email: "Invalid email address",
+      }));
+    } else {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        email: "",
+      }));
+    }
+  };
+
+  const handleNameChange = (event) => {
+    const name = event.target.value;
+    setName(name);
+    if (!name) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        name: "Name is required",
+      }));
+    } else {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        name: "",
+      }));
+    }
+  };
+
+  const handlePhoneNumberChange = (event) => {
+    const phoneNumber = event.target.value;
+    setPhoneNumber(phoneNumber);
+    if (!validatePhoneNumber(phoneNumber)) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        phoneNumber: "Invalid phone number (10 digits)",
+      }));
+    } else {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        phoneNumber: "",
+      }));
+    }
+  };
 
   const closeNotification = () => {
     setShowNotification(false);
@@ -190,6 +266,52 @@ export default function CartPage() {
     removeProduct(id);
   }
   async function goToPayment() {
+
+    let hasError = false;
+
+    if (!name) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        name: "Name is required",
+      }));
+      hasError = true;
+    } else {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        name: "",
+      }));
+    }
+
+    if (!validatePhoneNumber(phoneNumber)) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        phoneNumber: "Invalid phone number (10 digits)",
+      }));
+      hasError = true;
+    } else {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        phoneNumber: "",
+      }));
+    }
+
+    if (!validateEmail(email)) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        email: "Invalid email address",
+      }));
+      hasError = true;
+    } else {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        email: "",
+      }));
+    }
+
+    if (hasError) {
+      return;
+    }
+
     const response = await axios.post("/api/checkout", {
       name,
       phoneNumber,
@@ -312,68 +434,76 @@ export default function CartPage() {
 
           {!!cartProducts?.length && (
             <RevealWrapper delay={100}>
-              <Box>
-                <h2>Order Information</h2>
-                <Input
-                  type="text"
-                  placeholder="Name"
-                  value={name}
-                  name="name"
-                  onChange={(ev) => setName(ev.target.value)}
-                />
-                <Input
-                  type="text"
-                  placeholder="Phone Number"
-                  value={phoneNumber}
-                  name="phoneNumber"
-                  onChange={(ev) => setPhoneNumber(ev.target.value)}
-                />
-                <Input
-                  type="text"
-                  placeholder="Email"
-                  value={email}
-                  name="email"
-                  onChange={(ev) => setEmail(ev.target.value)}
-                />
-                <CityHolder>
+              <Form>
+                <Box>
+                  <h2>Order Information</h2>
                   <Input
                     type="text"
-                    placeholder="City"
-                    value={city}
-                    name="city"
-                    onChange={(ev) => setCity(ev.target.value)}
+                    placeholder="Name"
+                    value={name}
+                    name="name"
+                    onChange={handleNameChange}
+                    //onChange={(ev) => setName(ev.target.value)}
+                  />
+                  {errors.name && <ErrorMessage>{errors.name}</ErrorMessage>}
+                  <Input
+                    type="text"
+                    placeholder="Phone Number"
+                    value={phoneNumber}
+                    name="phoneNumber"
+                    onChange={handlePhoneNumberChange}
+                  />
+                  {errors.phoneNumber && <ErrorMessage>{errors.phoneNumber}</ErrorMessage>}
+                  <Input
+                    type="text"
+                    placeholder="Email"
+                    value={email}
+                    name="email"
+                    onChange={handleEmailChange}
+                    //onChange={(ev) => setEmail(ev.target.value)}
+                  />
+                  {errors.email && <ErrorMessage>{errors.email}</ErrorMessage>}
+                  <CityHolder>
+                    <Input
+                      type="text"
+                      placeholder="City"
+                      value={city}
+                      name="city"
+                      onChange={(ev) => setCity(ev.target.value)}
+                    />
+                    <Input
+                      type="text"
+                      placeholder="Postal Code"
+                      value={postalCode}
+                      name="postalCode"
+                      onChange={(ev) => setPostalCode(ev.target.value)}
+                    />
+                  </CityHolder>
+                  <Input
+                    type="text"
+                    placeholder="Street Address"
+                    value={streetAddress}
+                    name="streetAddress"
+                    onChange={(ev) => setStreetAddress(ev.target.value)}
                   />
                   <Input
                     type="text"
-                    placeholder="Postal Code"
-                    value={postalCode}
-                    name="postalCode"
-                    onChange={(ev) => setPostalCode(ev.target.value)}
+                    placeholder="Country"
+                    value={country}
+                    name="country"
+                    onChange={(ev) => setCountry(ev.target.value)}
                   />
-                </CityHolder>
-                <Input
-                  type="text"
-                  placeholder="Street Address"
-                  value={streetAddress}
-                  name="streetAddress"
-                  onChange={(ev) => setStreetAddress(ev.target.value)}
-                />
-                <Input
-                  type="text"
-                  placeholder="Country"
-                  value={country}
-                  name="country"
-                  onChange={(ev) => setCountry(ev.target.value)}
-                />
-                <Button
-                  size="small"
-                  variant="contained"
-                  color="success"
-                  onClick={goToPayment}
-                >
-                  Continue to payment
-                </Button>
-              </Box>
+                  <Button
+                    size="small"
+                    variant="contained"
+                    color="success"
+                    onClick={goToPayment}
+                    disabled={!!errors.email || !!errors.phoneNumber || !!errors.name}
+                  >
+                    Continue to payment
+                  </Button>
+                </Box>
+              </Form>
             </RevealWrapper>
           )}
         </ColumnsWrapper>
