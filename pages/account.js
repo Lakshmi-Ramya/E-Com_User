@@ -94,7 +94,7 @@ export default function AccountPage() {
   useEffect(() => {
     const notificationTimeout = setTimeout(() => {
       setShowNotification(false);
-    }, 5000);
+    }, 10000);
 
     return () => {
       clearTimeout(notificationTimeout);
@@ -170,7 +170,6 @@ export default function AccountPage() {
     }
 
     if (hasError) {
-      // Handle validation errors here or prevent form submission
       return;
     }
 
@@ -235,7 +234,7 @@ export default function AccountPage() {
   return (
     <>
       <Header />
-      {showNotification && (
+      {session && showNotification && (
         <Notification>
           <p>Click on any of your orders to generate an invoice</p>
           <NotifButton onClick={() => setShowNotification(false)}>
@@ -260,12 +259,24 @@ export default function AccountPage() {
                     {!orderLoaded && <Spinner fullWidth={true} />}
                     {orderLoaded && (
                       <div>
-                        {orders.length === 0 && <p>Login to see your orders</p>}
+                        {/* {orders.length === 0 && <p>Login to see your orders</p>}
                         {orders.length > 0 &&
                           orders
                             .slice()
                             .reverse()
-                            .map((o) => <SingleOrder key={o._id} {...o} />)}
+                            .map((o) => <SingleOrder key={o._id} {...o} />)} */}
+                        {orders.length === 0 ? (
+                          !session ? (
+                            <p>Login to see your orders</p>
+                          ) : (
+                            <p>You haven't done any orders yet</p>
+                          )
+                        ) : (
+                          orders
+                            .slice()
+                            .reverse()
+                            .map((o) => <SingleOrder key={o._id} {...o} />)
+                        )}
                       </div>
                     )}
                     {/* {selectedOrder && <Receipt order={selectedOrder} />} */}

@@ -14,18 +14,17 @@ const SearchInput = styled(Input)`
   padding: 5px 10px;
   border-radius: 5px;
   border: none;
-  font-size:1.1rem;
-  outline: none
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1),
-  0px 4px 8px rgba(0, 123, 255, 0.2);
+  font-size: 1.1rem;
+  outline: none;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1), 0px 4px 8px rgba(0, 123, 255, 0.2);
 
   &:hover {
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1),
-    0px 4px 8px rgba(0, 123, 255, 0.2);
+      0px 4px 8px rgba(0, 123, 255, 0.2);
   }
   &:focus {
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1),
-    0px 4px 8px rgba(0, 123, 255, 0.4);
+      0px 4px 8px rgba(0, 123, 255, 0.4);
     border: none !important;
     outline: none;
   }
@@ -35,7 +34,6 @@ const InputWrapper = styled.div`
   top: 68px;
   margin: 25px 0;
   padding: 5px 0;
-  background-color: #eeeeeeaa;
 `;
 
 export default function SearchPage() {
