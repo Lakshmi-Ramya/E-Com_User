@@ -2,6 +2,7 @@ import styled from "styled-components";
 import React from "react";
 import Center from "./Center";
 import { RevealWrapper } from "next-reveal";
+import ChatIcon from "@mui/icons-material/Chat";
 
 const Support = styled.div`
   font-size: 2rem;
@@ -27,6 +28,18 @@ const Support1In = styled.div`
   align-content: space-between;
   flex: unset;
   width: calc(50% - 10px);
+  border-radius: 5px;
+  background-color: rgba(0, 220, 255, 0.1);
+  border-bottom: 2px inset blue;
+  border-top: 2px inset blue;
+`;
+const Support1InImage = styled.div`
+  padding: 0px;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-between;
+  flex: unset;
+  width: calc(50% - 10px);
 `;
 const SupportImage = styled.img`
   max-width: 100%;
@@ -43,7 +56,34 @@ const Title = styled.h2`
   font-weight: normal;
 `;
 
-export default function FooterComponent() {
+const BoxOne = styled.div`
+  border: 1px solid red;
+`;
+
+const Heading = styled.h1`
+  color: blue;
+  background-color: rgba(0, 220, 255, 0.1);
+  padding: 10px;
+  font-weight: 500;
+  border-radius: 5px;
+`;
+
+const CommonComponent = styled.div`
+  width: "100%",
+  fontWeight: 400,
+  boxSizing: "border-box",
+  display: "block",
+`;
+
+const Para = styled.p`
+  width: "100%",
+  fontWeight: 400,
+  color: "rgba(0, 0, 0, 0.96)",
+  fontSize: "14px",
+  padding: "10px",
+`;
+
+export default function SupportComponent() {
   return (
     <>
       <Support>
@@ -57,24 +97,11 @@ export default function FooterComponent() {
       <SupportBox>
         <Support1>
           <Support1In>
-            <div
-              style={{
-                width: "100%",
-                fontWeight: 400,
-                boxSizing: "border-box",
-                display: "block",
-              }}
-            >
-              <h1 style={{ padding: "10px" }}>Your personal helpdesk.</h1>
-            </div>
-            <div
-              style={{
-                width: "100%",
-                fontWeight: 400,
-                boxSizing: "border-box",
-                display: "block",
-              }}
-            >
+            {/* BOX ONE */}
+            <CommonComponent>
+              <Heading>Your personal helpdesk.</Heading>
+            </CommonComponent>
+            <CommonComponent>
               <p
                 style={{
                   width: "100%",
@@ -100,26 +127,18 @@ export default function FooterComponent() {
                 Let’s chat
               </a>
               <h1></h1>
-            </div>
+            </CommonComponent>
           </Support1In>
-          <Support1In>
+          <Support1InImage>
             <SupportImage src="https://www.oneplus.in/content/dam/oasis/page/2022/new-homepage/na/homepage/support/Helpdesk-PC.jpg.thumb.webp" />
-          </Support1In>
+          </Support1InImage>
         </Support1>
         <Support1>
+          {/* BOX TWO */}
           <Support1In>
-            <div
-              style={{
-                width: "100%",
-                fontWeight: 400,
-                boxSizing: "border-box",
-                display: "block",
-              }}
-            >
-              <h1 style={{ padding: "10px" }}>
-                Our technical team is here to help
-              </h1>
-            </div>
+            <CommonComponent>
+              <Heading>Our technical team is here to help</Heading>
+            </CommonComponent>
             <div
               style={{
                 width: "100%",
@@ -155,9 +174,9 @@ export default function FooterComponent() {
               <h1></h1>
             </div>
           </Support1In>
-          <Support1In>
+          <Support1InImage>
             <SupportImage src="https://www.oneplus.in/content/dam/oasis/page/2022/operation/sep/0906/homepage/Service-Center-desktop.jpg.thumb.webp" />
-          </Support1In>
+          </Support1InImage>
         </Support1>
       </SupportBox>
     </>
