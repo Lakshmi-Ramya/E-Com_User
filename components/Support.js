@@ -29,9 +29,9 @@ const Support1In = styled.div`
   flex: unset;
   width: calc(50% - 10px);
   border-radius: 5px;
-  background-color: rgba(0, 220, 255, 0.1);
-  border-bottom: 2px inset blue;
-  border-top: 2px inset blue;
+  // background-color: rgba(0, 220, 255, 0.1);
+  // border-bottom: 2px inset blue;
+  // border-top: 2px inset blue;
 `;
 const Support1InImage = styled.div`
   padding: 0px;
@@ -156,7 +156,8 @@ export default function SupportComponent() {
                   padding: "10px",
                 }}
               >
-                Our Pan-India support network can help connect you to any required service centers.
+                Our Pan-India support network can help connect you to any
+                required service centers.
               </p>
               <a
                 href=""
