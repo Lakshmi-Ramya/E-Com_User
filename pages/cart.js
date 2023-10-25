@@ -129,8 +129,23 @@ const ErrorMessage = styled.div`
   font-size: 14px;
 `;
 
+const IncDecButton = styled.button`
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  padding-left: 15px;
+  padding-right: 15px;
+  // box-shadow: inset 5px 5px 10px #bababa, inset -5px -5px 10px #ffffff;
+  box-shadow: 5px 5px 10px #bababa, -5px -5px 10px #ffffff;
+  &:hover {
+    transform: scale(1.1);
+    transition: all 0.3s;
+  }
+`;
+
 export default function CartPage() {
-  const { cartProducts, addProduct, removeProduct, clearCart } = useContext(CartContext);
+  const { cartProducts, addProduct, removeProduct, clearCart } =
+    useContext(CartContext);
   const { data: session } = useSession();
   const [products, setProducts] = useState([]);
   const [name, setName] = useState("");
@@ -147,6 +162,7 @@ export default function CartPage() {
     email: "",
     phoneNumber: "",
     name: "",
+    postalCode: "",
   });
 
   const validateEmail = (email) => {
@@ -207,6 +223,12 @@ export default function CartPage() {
     }
   };
 
+  const validatePostalCode = (postalCode) => {
+    const postalCodePattern = /^[0-9]{6}$/;
+
+    return postalCodePattern.test(postalCode);
+  };
+
   const closeNotification = () => {
     setShowNotification(false);
   };
@@ -233,7 +255,6 @@ export default function CartPage() {
     }
     if (window?.location.href.includes("success")) {
       setIsSuccess(true);
-      clearCart();
     }
     axios.get("/api/settings?name=shippingFee").then((res) => {
       setShippingFee(res.data.value);
@@ -266,7 +287,6 @@ export default function CartPage() {
     removeProduct(id);
   }
   async function goToPayment() {
-
     let hasError = false;
 
     if (!name) {
@@ -332,6 +352,13 @@ export default function CartPage() {
     total += price;
   }
 
+  useEffect(() => {
+    if (isSuccess) {
+      // Clear the cart when the order is successful
+      clearCart();
+    }
+  }, [isSuccess]);
+
   if (isSuccess) {
     return (
       <>
@@ -383,29 +410,23 @@ export default function CartPage() {
                           </div>
                         </ProductInfoCell>
                         <td>
-                          <Button
-                            style={{ padding: "4px 8px" }}
-                            size="small"
-                            variant="outlined"
-                            color="secondary"
+                          <IncDecButton
                             onClick={() => lessOfThisProduct(product._id)}
                           >
                             -
-                          </Button>
+                          </IncDecButton>
+
                           <QuantityLabel>
                             {
                               cartProducts.filter((id) => id === product._id)
                                 .length
                             }
                           </QuantityLabel>
-                          <Button
-                            size="small"
-                            variant="outlined"
-                            color="secondary"
+                          <IncDecButton
                             onClick={() => moreOfThisProduct(product._id)}
                           >
                             +
-                          </Button>
+                          </IncDecButton>
                         </td>
                         <td>
                           ₹
@@ -434,76 +455,109 @@ export default function CartPage() {
 
           {!!cartProducts?.length && (
             <RevealWrapper delay={100}>
-              <Form>
-                <Box>
-                  <h2>Order Information</h2>
+              {/* <Form> */}
+              <Box>
+                <h2>Order Information</h2>
+                <Input
+                  type="text"
+                  placeholder="Name"
+                  value={name}
+                  name="name"
+                  onChange={handleNameChange}
+                  //onChange={(ev) => setName(ev.target.value)}
+                />
+                {errors.name && <ErrorMessage>{errors.name}</ErrorMessage>}
+                <Input
+                  type="text"
+                  placeholder="Phone Number"
+                  value={phoneNumber}
+                  name="phoneNumber"
+                  onChange={handlePhoneNumberChange}
+                />
+                {errors.phoneNumber && (
+                  <ErrorMessage>{errors.phoneNumber}</ErrorMessage>
+                )}
+                <Input
+                  type="text"
+                  placeholder="Email"
+                  value={email}
+                  name="email"
+                  onChange={handleEmailChange}
+                  //onChange={(ev) => setEmail(ev.target.value)}
+                />
+                {errors.email && <ErrorMessage>{errors.email}</ErrorMessage>}
+                <CityHolder>
                   <Input
                     type="text"
-                    placeholder="Name"
-                    value={name}
-                    name="name"
-                    onChange={handleNameChange}
-                    //onChange={(ev) => setName(ev.target.value)}
+                    placeholder="City"
+                    value={city}
+                    name="city"
+                    onChange={(ev) => setCity(ev.target.value)}
                   />
-                  {errors.name && <ErrorMessage>{errors.name}</ErrorMessage>}
+                  {/* <Input
+                    type="text"
+                    placeholder="Postal Code"
+                    value={postalCode}
+                    name="postalCode"
+                    onChange={(ev) => setPostalCode(ev.target.value)}
+                    
+                  /> */}
                   <Input
                     type="text"
-                    placeholder="Phone Number"
-                    value={phoneNumber}
-                    name="phoneNumber"
-                    onChange={handlePhoneNumberChange}
+                    placeholder="Postal Code"
+                    value={postalCode}
+                    name="postalCode"
+                    onChange={(ev) => {
+                      const inputPostalCode = ev.target.value;
+                      setPostalCode(inputPostalCode);
+
+                      if (!validatePostalCode(inputPostalCode)) {
+                        setErrors((prevErrors) => ({
+                          ...prevErrors,
+                          postalCode: "Invalid postal code",
+                        }));
+                      } else {
+                        setErrors((prevErrors) => ({
+                          ...prevErrors,
+                          postalCode: "",
+                        }));
+                      }
+                    }}
                   />
-                  {errors.phoneNumber && <ErrorMessage>{errors.phoneNumber}</ErrorMessage>}
-                  <Input
-                    type="text"
-                    placeholder="Email"
-                    value={email}
-                    name="email"
-                    onChange={handleEmailChange}
-                    //onChange={(ev) => setEmail(ev.target.value)}
-                  />
-                  {errors.email && <ErrorMessage>{errors.email}</ErrorMessage>}
-                  <CityHolder>
-                    <Input
-                      type="text"
-                      placeholder="City"
-                      value={city}
-                      name="city"
-                      onChange={(ev) => setCity(ev.target.value)}
-                    />
-                    <Input
-                      type="text"
-                      placeholder="Postal Code"
-                      value={postalCode}
-                      name="postalCode"
-                      onChange={(ev) => setPostalCode(ev.target.value)}
-                    />
-                  </CityHolder>
-                  <Input
-                    type="text"
-                    placeholder="Street Address"
-                    value={streetAddress}
-                    name="streetAddress"
-                    onChange={(ev) => setStreetAddress(ev.target.value)}
-                  />
-                  <Input
-                    type="text"
-                    placeholder="Country"
-                    value={country}
-                    name="country"
-                    onChange={(ev) => setCountry(ev.target.value)}
-                  />
-                  <Button
-                    size="small"
-                    variant="contained"
-                    color="success"
-                    onClick={goToPayment}
-                    disabled={!!errors.email || !!errors.phoneNumber || !!errors.name}
-                  >
-                    Continue to payment
-                  </Button>
-                </Box>
-              </Form>
+                  {errors.postalCode && (
+                    <ErrorMessage>{errors.postalCode}</ErrorMessage>
+                  )}
+                </CityHolder>
+                <Input
+                  type="text"
+                  placeholder="Street Address"
+                  value={streetAddress}
+                  name="streetAddress"
+                  onChange={(ev) => setStreetAddress(ev.target.value)}
+                />
+                <Input
+                  type="text"
+                  placeholder="Country"
+                  value={country}
+                  name="country"
+                  onChange={(ev) => setCountry(ev.target.value)}
+                />
+                <Button
+                  size="small"
+                  variant="contained"
+                  color="success"
+                  onClick={goToPayment}
+                  disabled={
+                    !!errors.email ||
+                    !!errors.phoneNumber ||
+                    !!errors.name ||
+                    !!errors.postalCode
+                  }
+                >
+                  Continue to payment
+                </Button>
+              </Box>
+              {/* </Form> */}
             </RevealWrapper>
           )}
         </ColumnsWrapper>

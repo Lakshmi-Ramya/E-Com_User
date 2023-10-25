@@ -70,8 +70,9 @@ const TextButtons = styled.div`
 
 const CarouselImage = styled.img`
   max-width: 100%;
-  height: 100%;
+  max-height: 430px;
   object-fit: cover;
+  filter: opacity(90%) contrast(1000px);
 `;
 const DiscountBanner = styled.img`
   max-width: 100%;
@@ -83,8 +84,9 @@ const CarouselContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  background: transperant;
   height: 100%;
-  max-height: 1500px; /* Adjust the max-height as needed */
+  max-height: 1500px;
 `;
 export default function HeaderTwo({ product }) {
   return (
@@ -147,30 +149,25 @@ export default function HeaderTwo({ product }) {
           interval={8000}
           showIndicators={true}
         >
-          <div>
-            <CarouselImage
-              src="https://media-ik.croma.com/prod/https://media.croma.com/image/upload/v1696866343/Croma%20Assets/CMS/LP%20Page%20Banners/2023/HP%20Top%20Rotating%20Deals/October/iPhone/iPhone%2015/HP_iPhone15_10oct2023_su7rhp.jpg?tr=w-2048"
-              alt="Carousel Image 1"
-            />
-          </div>
-          <div>
-            <CarouselImage
-              src="https://media-ik.croma.com/prod/https://media.croma.com/image/upload/v1696918123/Croma%20Assets/CMS/LP%20Page%20Banners/2023/HP%20Top%20Rotating%20Deals/October/iPhone/iPhone%2013/HP_iPhone13_10oct2023_atu1cf.jpg?tr=w-2048"
-              alt="Carousel Image 2"
-            />
-          </div>
-          <div>
-            <CarouselImage
-              src="https://media-ik.croma.com/prod/https://media.croma.com/image/upload/v1696857170/Croma%20Assets/CMS/LP%20Page%20Banners/2023/HP%20Top%20Rotating%20Deals/October/Oct%2010th/HP_BTSpkrs_10oct2023_z92dyq.jpg?tr=w-2048"
-              alt="Carousel Image 3"
-            />
-          </div>
-          <div>
-            <CarouselImage
-              src="https://media-ik.croma.com/prod/https://media.croma.com/image/upload/v1696857173/Croma%20Assets/CMS/LP%20Page%20Banners/2023/HP%20Top%20Rotating%20Deals/October/Oct%2010th/HP_Tablets_10oct2023_agfl6e.jpg?tr=w-2048"
-              alt="Carousel Image 4"
-            />
-          </div>
+          <CarouselImage
+            src="https://media-ik.croma.com/prod/https://media.croma.com/image/upload/v1696866343/Croma%20Assets/CMS/LP%20Page%20Banners/2023/HP%20Top%20Rotating%20Deals/October/iPhone/iPhone%2015/HP_iPhone15_10oct2023_su7rhp.jpg?tr=w-2048"
+            alt="Carousel Image 1"
+          />
+
+          <CarouselImage
+            src="https://media-ik.croma.com/prod/https://media.croma.com/image/upload/v1696918123/Croma%20Assets/CMS/LP%20Page%20Banners/2023/HP%20Top%20Rotating%20Deals/October/iPhone/iPhone%2013/HP_iPhone13_10oct2023_atu1cf.jpg?tr=w-2048"
+            alt="Carousel Image 2"
+          />
+
+          <CarouselImage
+            src="https://media-ik.croma.com/prod/https://media.croma.com/image/upload/v1696857170/Croma%20Assets/CMS/LP%20Page%20Banners/2023/HP%20Top%20Rotating%20Deals/October/Oct%2010th/HP_BTSpkrs_10oct2023_z92dyq.jpg?tr=w-2048"
+            alt="Carousel Image 3"
+          />
+
+          <CarouselImage
+            src="https://media-ik.croma.com/prod/https://media.croma.com/image/upload/v1696857173/Croma%20Assets/CMS/LP%20Page%20Banners/2023/HP%20Top%20Rotating%20Deals/October/Oct%2010th/HP_Tablets_10oct2023_agfl6e.jpg?tr=w-2048"
+            alt="Carousel Image 4"
+          />
         </Carousel>
       </CarouselContainer>
 

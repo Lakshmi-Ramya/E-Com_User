@@ -5,11 +5,14 @@ import { SessionProvider } from "next-auth/react";
 const GlobalStyles = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
   body{
-    background-color: #eee;
+    // background-color: #eee;
     padding:0;
     margin:0;
     font-family: 'Poppins', sans-serif;
-  }
+
+    background-size: cover;
+    background-repeat: no-repeat
+  } 
   .carousel.carousel-slider .control-arrow {
     top: 0;
     background-color: #222 !important;

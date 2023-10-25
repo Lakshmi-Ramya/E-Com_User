@@ -17,14 +17,17 @@ const StyledOrder = styled.div`
   transform: perspective(500px) rotateX(0);
   backface-visibility: hidden;
 
+  // newmorphism (optional)
+  // box-shadow: -5px 5px 6px #5a5a5a, -5px -5px 6px #ffffff;
+  // background-color: #fff;
+
   &:not(:last-child) {
     margin-bottom: 20px;
   }
 
   &:hover {
-    animation: tilt 1s infinite alternate;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    background: linear-gradient(to right, #d5d5d5, white 100%, grey);
+    transition: all 0.3s;
+    transform: translateY(-10px);
   }
 
   @keyframes tilt {

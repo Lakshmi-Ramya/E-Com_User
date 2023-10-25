@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const StyledTable = styled.table`
-  width: 100%;
+  max-width: 100%;
   th {
     text-align: left;
     text-transform: uppercase;
