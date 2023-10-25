@@ -44,7 +44,7 @@ const Box = styled.div`
   border-radius: 10px;
   padding: 30px;
   text-align: center;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.2);
 `;
 
 const ProductInfoCell = styled.td`
@@ -121,7 +121,7 @@ const Form = styled.form`
   padding: 20px;
   background-color: #fff;
   border-radius: 10px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
 `;
 
 const ErrorMessage = styled.div`
