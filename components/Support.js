@@ -16,7 +16,7 @@ const Support1 = styled.div`
   width: calc(50% - 10px);
   justify-content: space-between;
   margin-bottom: 50px;
-  background-color: #f8f8f8;
+  // background-color: #f8f8f8;
 `;
 const SupportBox = styled.div`
   display: flex;
@@ -30,8 +30,8 @@ const Support1In = styled.div`
   width: calc(50% - 10px);
   border-radius: 5px;
   // background-color: rgba(0, 220, 255, 0.1);
-  // border-bottom: 2px inset blue;
-  // border-top: 2px inset blue;
+  border-bottom: 2px inset grey;
+  border-top: 2px inset grey;
 `;
 const Support1InImage = styled.div`
   padding: 0px;
@@ -43,7 +43,7 @@ const Support1InImage = styled.div`
 `;
 const SupportImage = styled.img`
   max-width: 100%;
-  max-height: 100%;
+  height: 100%;
   object-fit: contain;
   transition: transform 0.3s ease;
   &:hover {
@@ -61,8 +61,7 @@ const BoxOne = styled.div`
 `;
 
 const Heading = styled.h1`
-  color: blue;
-  background-color: rgba(0, 220, 255, 0.1);
+  // background-color: rgba(0, 220, 255, 0.1);
   padding: 10px;
   font-weight: 500;
   border-radius: 5px;
@@ -130,7 +129,8 @@ export default function SupportComponent() {
             </CommonComponent>
           </Support1In>
           <Support1InImage>
-            <SupportImage src="https://www.oneplus.in/content/dam/oasis/page/2022/new-homepage/na/homepage/support/Helpdesk-PC.jpg.thumb.webp" />
+            {/* <SupportImage src="https://www.oneplus.in/content/dam/oasis/page/2022/new-homepage/na/homepage/support/Helpdesk-PC.jpg.thumb.webp" /> */}
+            <SupportImage src="./images/schat1 no bg.png" />
           </Support1InImage>
         </Support1>
         <Support1>
@@ -175,7 +175,8 @@ export default function SupportComponent() {
             </div>
           </Support1In>
           <Support1InImage>
-            <SupportImage src="https://www.oneplus.in/content/dam/oasis/page/2022/operation/sep/0906/homepage/Service-Center-desktop.jpg.thumb.webp" />
+            {/* <SupportImage src="https://www.oneplus.in/content/dam/oasis/page/2022/operation/sep/0906/homepage/Service-Center-desktop.jpg.thumb.webp" /> */}
+            <SupportImage src="./images/tech team two no bg.png" />
           </Support1InImage>
         </Support1>
       </SupportBox>
