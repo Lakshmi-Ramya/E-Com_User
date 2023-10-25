@@ -192,34 +192,44 @@ function generatePDF(data) {
   doc.setFontSize(12);
 
   // Order Date
+  doc.setTextColor(230, 5, 5);
   doc.text("Order Date:", 20, 40);
   doc.text(data.createdAt, 70, 40);
+  doc.line(20, 44, 190, 44);
 
   // Customer Name
+  doc.setTextColor(4, 52, 130);
   doc.text("Customer Name:", 20, 55);
   doc.text(data.name, 70, 55);
+  doc.line(20, 59, 190, 59);
 
   // Phone Number
+  doc.setTextColor(4, 52, 130);
   doc.text("Phone Number:", 20, 70);
   doc.text(data.phoneNumber, 70, 70);
+  doc.line(20, 74, 190, 74);
 
   // Email
   doc.text("Email:", 20, 85);
   doc.text(data.email, 70, 85);
+  doc.line(20, 89, 190, 89);
 
   // Address
   doc.text("Address:", 20, 100);
   doc.text(data.streetAddress, 70, 100);
 
   // Postal Code, City, Country
-  doc.text(data.postalCode, 70, 115);
-  doc.text(data.city, 100, 115);
-  doc.text(data.country, 130, 115);
+  doc.text(data.postalCode, 70, 110);
+  doc.text(data.city, 90, 110);
+  doc.text(data.country, 120, 110);
+  doc.line(20, 130, 190, 130);
 
   // Line items
+  doc.setTextColor(230, 5, 5);
   doc.setFont("helvetica", "bold");
   doc.setFontSize(14);
   doc.text("Order Items:", 20, 140);
+  doc.line(20, 145, 190, 145);
 
   doc.setFont("helvetica", "normal");
   doc.setFontSize(12);
@@ -231,7 +241,7 @@ function generatePDF(data) {
       20,
       yOffset
     );
-    yOffset += 15;
+    yOffset += 10;
   });
 
   // Save or download the PDF
