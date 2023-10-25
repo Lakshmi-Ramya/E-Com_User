@@ -151,7 +151,7 @@ export default function FooterComponent() {
         <a href="#">
           <span>Help Center</span>
         </a>
-        <span className="licence">
+        <span className="licence" style={{ color: "white" }}>
           © 2023-2025 <span>E-Commerce</span>
         </span>
         <img
