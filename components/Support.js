@@ -156,8 +156,7 @@ export default function SupportComponent() {
                   padding: "10px",
                 }}
               >
-                We have over 250 authorized service centers across India. All
-                the fully-trained OnePlus staff are at your service.
+                Our Pan-India support network can help connect you to any required service centers.
               </p>
               <a
                 href=""
