@@ -182,7 +182,7 @@ function generatePDF(data) {
 
   // Title text color
   doc.setTextColor(255); // White color
-  doc.text("Order Receipt", 105, 20, { align: "center" });
+  doc.text("Order Invoice", 105, 20, { align: "center" });
 
   // Reset text color
   doc.setTextColor(0); // Reset to black
