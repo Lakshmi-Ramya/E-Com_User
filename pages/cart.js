@@ -380,12 +380,12 @@ export default function CartPage() {
       <Center>
         <ColumnsWrapper>
           <RevealWrapper delay={0}>
-            <Box>
-              <h2>Cart</h2>
+            <h2>Cart</h2>
 
-              {!cartProducts?.length && <div>Your cart is empty</div>}
-              {products?.length > 0 && (
-                <Table>
+            {!cartProducts?.length && <div>Your cart is empty</div>}
+            {products?.length > 0 && (
+              <Box>
+                <Table style={{ width: "100%" }}>
                   <thead>
                     <tr>
                       <th>Product</th>
@@ -449,8 +449,8 @@ export default function CartPage() {
                     </tr>
                   </tbody>
                 </Table>
-              )}
-            </Box>
+              </Box>
+            )}
           </RevealWrapper>
 
           {!!cartProducts?.length && (
