@@ -33,8 +33,8 @@ const Logo = styled(Link)`
   font-size: 24px;
 
   img {
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     margin-right: 10px;
   }
 `;
@@ -157,7 +157,10 @@ export default function Header() {
     <StyledHeader>
       <Center>
         <Wrapper>
-          <Logo href={"/"}><img src="./images/logo.png"/>ElectroHub</Logo>
+          <Logo href={"/"}>
+            <img src="./images/logo.png" />
+            ElectroHub
+          </Logo>
           <StyledNav mobileNavActive={mobileNavActive}>
             <NavLink href={"/"}>Home</NavLink>
             <NavLink href={"/products"}>All products</NavLink>
