@@ -152,7 +152,7 @@ export default function FooterComponent() {
           <span>Help Center</span>
         </a>
         <span className="licence" style={{ color: "white" }}>
-          © 2023-2025 <span>E-Commerce</span>
+          © 2023-2025 <span>ElectroHub</span>
         </span>
         <img
           src="https://static-assets-web.flixcart.com/batman-returns/batman-returns/p/images/payment-method-c454fb.svg"
