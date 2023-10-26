@@ -20,9 +20,10 @@ const CategoryHeader = styled.div`
   }
 `;
 const FiltersWrapper = styled.div`
-  display: flex;
-  gap: 15px;
+  display: grid;
+  gap: 25px;
   align-items: center;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   // flex-direction: column;
   // align-items: flex-start;
 `;
@@ -34,7 +35,7 @@ const Filter = styled.div`
   gap: 5px;
   color: #444;
   box-shadow: 5px 5px 10px #797979, -5px -5px 10px #ffffff;
-  width: 100%;
+  max-width: 100%;
 
   select {
     background-color: transparent;
