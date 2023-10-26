@@ -214,22 +214,46 @@ function generatePDF(data) {
   doc.text(data.email, 70, 85);
   doc.line(20, 89, 190, 89);
 
-  // Address
-  doc.text("Address:", 20, 100);
-  doc.text(data.streetAddress, 70, 100);
+  // // Address
+  // doc.text("Shipping Address:", 20, 100);
+  // doc.text(data.streetAddress, 70, 100);
 
-  // Postal Code, City, Country
-  doc.text(data.postalCode, 70, 110);
-  doc.text(data.city, 90, 110);
-  doc.text(data.country, 120, 110);
-  doc.line(20, 130, 190, 130);
+  // // Address
+  // doc.text("Billing Address:", 20, 130);
+  // doc.text(data.streetAddress, 70, 130);
+
+  // // Postal Code, City, Country
+  // doc.text(data.postalCode, 70, 110);
+  // doc.text(data.city, 90, 110);
+  // doc.text(data.country, 120, 110);
+ 
+
+  // // Postal Code, City, Country
+  // doc.text(data.postalCode, 70, 140);
+  // doc.text(data.city, 90, 140);
+  // doc.text(data.country, 120, 140);
+
+
+// Combined Address
+const combinedAddress = `${data.streetAddress}, ${data.postalCode}, ${data.city}, ${data.country}`;
+doc.text(`Shipping Address: ${combinedAddress}`, 20, 100);
+
+// Combined Address
+const newAddress = `${data.streetAddress}, ${data.postalCode}, ${data.city}, ${data.country}`;
+doc.text(`Billing Address: ${newAddress}`, 20, 108);
+
+
+  //Seller Address
+  doc.text("Seller Address: 123 ABC Street, Hyderabad, Telangana, India, 500001", 20, 116);
+
+  doc.line(20, 155, 190, 155);
 
   // Line items
   doc.setTextColor(230, 5, 5);
   doc.setFont("helvetica", "bold");
-  doc.setFontSize(14);
-  doc.text("Order Items:", 20, 140);
-  doc.line(20, 145, 190, 145);
+  doc.setFontSize(12);
+  doc.text("Order Items:", 20, 160);
+  doc.line(20, 163, 190, 163);
 
   doc.setFont("INRFont"); // Set the custom font for the INR symbol
   doc.setFontSize(12);
@@ -237,23 +261,29 @@ function generatePDF(data) {
   doc.setFont("helvetica", "normal");
   doc.setFontSize(12);
 
-  let yOffset = 155;
+  let yOffset = 173;
   data.line_items.forEach((item) => {
-    doc.text(
-      `${item.quantity} x ${
-        item.price_data.product_data.name
-      } || Price (INR):   ${item.price_data.unit_amount / 100}`,
-      20,
-      yOffset
-    );
-    yOffset += 10;
-  });
+  doc.text(`Item name: ${item.price_data.product_data.name}`, 20, yOffset);
+  doc.text(`Unit Price: ${item.price_data.unit_amount / 100}`, 20, yOffset + 7);
+  doc.text(`Quantity: ${item.quantity}`, 20, yOffset + 14);
+  doc.text(
+    `Net Amount: ${(item.quantity * item.price_data.unit_amount) / 100}`,
+    20,
+    yOffset + 21
+  );
+  yOffset += 35; // Adjusted yOffset for the next item
+});
 
-  yOffset += 10;
-  doc.line(20, 180, 190, 180);
+
+  yOffset += 5;
   doc.setTextColor(8, 7, 7);
   doc.setFont("helvetica", "bold");
-  doc.text(`Total Price: Rs.${data.totalPrice}`, 20, yOffset);
+  doc.line(20, yOffset-13, 190, yOffset-13);
+  doc.text(`Total Price: Rs.${data.totalPrice}`, 20, yOffset-3);
+
+  doc.text("GST Number:  29AALCA0171E1ZV", 20, yOffset+7);
+
+
 
   // Save or download the PDF
   doc.save("your receipt");
@@ -292,13 +322,13 @@ export default function SingleOrder({ line_items, createdAt, ...rest }) {
               <span>{item.quantity}x </span>
               {item.price_data.product_data.name}
               <br /> <br />
-              <p>Price:</p> <span>₹{item.price_data.unit_amount / 100}</span>
+              {/* <p>Price:</p> <span>₹{item.price_data.unit_amount / 100}</span> */}
             </ProductRow>
           ))}
         </Products>
-        <div>
+        {/* <div>
           <strong>Total Price: ₹{totalPrice}</strong>
-        </div>
+        </div> */}
       </StyledOrder>
     </>
   );
