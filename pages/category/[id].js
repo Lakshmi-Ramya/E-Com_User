@@ -23,9 +23,18 @@ const FiltersWrapper = styled.div`
   display: grid;
   gap: 25px;
   align-items: center;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  // grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   // flex-direction: column;
   // align-items: flex-start;
+
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(200px, 1fr)
+  ); /* Change column width and responsiveness as needed */
+
+  @media (max-width: 768px) {
+    grid-template-columns: 2fr 2fr; /* Adjust for smaller screens */
+  }
 `;
 const Filter = styled.div`
   background-color: #ddd;
