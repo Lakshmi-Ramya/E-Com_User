@@ -231,29 +231,44 @@ function generatePDF(data) {
   doc.text("Order Items:", 20, 140);
   doc.line(20, 145, 190, 145);
 
+  doc.setFont("INRFont"); // Set the custom font for the INR symbol
+  doc.setFontSize(12);
+
   doc.setFont("helvetica", "normal");
   doc.setFontSize(12);
 
   let yOffset = 155;
   data.line_items.forEach((item) => {
     doc.text(
-      `${item.quantity} x ${item.price_data.product_data.name}`,
+      `${item.quantity} x ${
+        item.price_data.product_data.name
+      } || Price (INR):   ${item.price_data.unit_amount / 100}`,
       20,
       yOffset
     );
     yOffset += 10;
   });
 
+  yOffset += 10;
+  doc.line(20, 180, 190, 180);
+  doc.setTextColor(8, 7, 7);
+  doc.setFont("helvetica", "bold");
+  doc.text(`Total Price: Rs.${data.totalPrice}`, 20, yOffset);
+
   // Save or download the PDF
   doc.save("your receipt");
 }
 
 export default function SingleOrder({ line_items, createdAt, ...rest }) {
+  const totalPrice = line_items.reduce((total, item) => {
+    return total + (item.quantity * item.price_data.unit_amount) / 100;
+  }, 0);
+
   return (
     <>
       <StyledOrder
         onClick={() => {
-          generatePDF({ line_items, createdAt, ...rest });
+          generatePDF({ line_items, createdAt, ...rest, totalPrice });
           alert("PDF generated successfully!");
         }}
       >
@@ -276,12 +291,14 @@ export default function SingleOrder({ line_items, createdAt, ...rest }) {
             <ProductRow key={index}>
               <span>{item.quantity}x </span>
               {item.price_data.product_data.name}
+              <br /> <br />
+              <p>Price:</p> <span>₹{item.price_data.unit_amount / 100}</span>
             </ProductRow>
           ))}
         </Products>
-        {/* <GenPdf onClick={() => generatePDF({ line_items, createdAt, ...rest })}>
-          Generate Invoice
-        </GenPdf> */}
+        <div>
+          <strong>Total Price: ₹{totalPrice}</strong>
+        </div>
       </StyledOrder>
     </>
   );

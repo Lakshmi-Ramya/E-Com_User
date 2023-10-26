@@ -26,6 +26,12 @@ export default async function handler(req, res) {
   const uniqueIds = [...new Set(productsIds)];
   const productsInfos = await Product.find({ _id: uniqueIds });
 
+  const productPrices = {};
+
+  productsInfos.forEach((product) => {
+    productPrices[product._id] = product.price;
+  });
+
   let line_items = [];
   for (const productId of uniqueIds) {
     const productInfo = productsInfos.find(
@@ -82,5 +88,6 @@ export default async function handler(req, res) {
 
   res.json({
     url: stripeSession.url,
+    productPrices,
   });
 }

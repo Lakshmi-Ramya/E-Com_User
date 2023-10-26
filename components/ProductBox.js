@@ -143,19 +143,6 @@ export default function ProductBox({
     ev.preventDefault();
     ev.stopPropagation();
     const nextValue = !isWished;
-    // new addition
-    // const isUserSignedIn = false;
-    //   if (nextValue === false && onRemoveFromWishlist) {
-    //     onRemoveFromWishlist(_id);
-    //   }
-    //   axios
-    //     .post("/api/wishlist", {
-    //       product: _id,
-    //     })
-    //     .then(() => {});
-    //   setIsWished(nextValue);
-    // }
-
     if (!session) {
       // If the user is not signed in, show the login pop-up
       setShowLoginPopup(true);
