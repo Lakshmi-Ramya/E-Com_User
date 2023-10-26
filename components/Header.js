@@ -24,11 +24,19 @@ const StyledHeader = styled.header`
   }
 `;
 const Logo = styled(Link)`
+  display: flex;
+  align-items: center;
   color: #fff;
   text-decoration: none;
   position: relative;
   z-index: 3;
   font-size: 24px;
+
+  img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+  }
 `;
 const Wrapper = styled.div`
   display: flex;
@@ -149,7 +157,7 @@ export default function Header() {
     <StyledHeader>
       <Center>
         <Wrapper>
-          <Logo href={"/"}>ElectroHub</Logo>
+          <Logo href={"/"}><img src="./images/logo.png"/>ElectroHub</Logo>
           <StyledNav mobileNavActive={mobileNavActive}>
             <NavLink href={"/"}>Home</NavLink>
             <NavLink href={"/products"}>All products</NavLink>
