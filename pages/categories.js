@@ -89,7 +89,7 @@ export default function CategoriesPage({
               ))}
               <RevealWrapper
                 origin="left"
-                delay={categoriesProducts[cat._id].length * 30}
+                delay={categoriesProducts[cat._id].length * 20}
               >
                 <ShowAllSquare href={"/category/" + cat._id}>
                   Show All

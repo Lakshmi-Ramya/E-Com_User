@@ -13,6 +13,8 @@ import countryData from "country-data";
 import { Select } from "@mui/material";
 import CancelIcon from "@mui/icons-material/Cancel";
 import ScrollToTopButton from "@/components/ScrollToTopButton";
+import ReceiptIcon from "@mui/icons-material/Receipt";
+import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
 
 const ColumnsWrapper = styled.div`
   display: grid;
@@ -368,6 +370,10 @@ export default function CartPage() {
             <Box>
               <h1>Thanks for your order!</h1>
               <p>We will email you when your order will be sent.</p>
+              <p>
+                Your can download your Invoice from your Account!{" "}
+                <ReceiptLongIcon color="info" variant="contained" />
+              </p>
             </Box>
           </ColumnsWrapper>
         </Center>

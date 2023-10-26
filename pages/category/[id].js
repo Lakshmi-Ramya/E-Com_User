@@ -23,6 +23,8 @@ const FiltersWrapper = styled.div`
   display: flex;
   gap: 15px;
   align-items: center;
+  // flex-direction: column;
+  // align-items: flex-start;
 `;
 const Filter = styled.div`
   background-color: #ddd;
@@ -32,6 +34,7 @@ const Filter = styled.div`
   gap: 5px;
   color: #444;
   box-shadow: 5px 5px 10px #797979, -5px -5px 10px #ffffff;
+  width: 100%;
 
   select {
     background-color: transparent;
@@ -93,45 +96,47 @@ export default function CategoryPage({
       <Center>
         <CategoryHeader>
           <h1>{category.name}</h1>
-          <FiltersWrapper>
-            {category.properties.map((prop) => (
-              <Filter key={prop.name}>
-                <span>{prop.name}:</span>
-                <select
-                  onChange={(ev) =>
-                    handleFilterChange(prop.name, ev.target.value)
-                  }
-                  value={filtersValues.find((f) => f.name === prop.name).value}
-                >
-                  <option value="all">All</option>
-                  {prop.values.map((val) => (
-                    <option key={val} value={val}>
-                      {val}
-                    </option>
-                  ))}
-                </select>
-              </Filter>
-            ))}
-            <Filter>
-              <span>Sort:</span>
+        </CategoryHeader>
+
+        <FiltersWrapper>
+          {category.properties.map((prop) => (
+            <Filter key={prop.name}>
+              <span>{prop.name}:</span>
               <select
-                value={sort}
-                onChange={(ev) => {
-                  setSort(ev.target.value);
-                  setFiltersChanged(true);
-                }}
+                onChange={(ev) =>
+                  handleFilterChange(prop.name, ev.target.value)
+                }
+                value={filtersValues.find((f) => f.name === prop.name).value}
               >
-                <option value="price-asc">price, lowest first</option>
-                <option value="price-desc">price, highest first</option>
-                <option value="_id-desc">newest first</option>
-                <option value="_id-asc">oldest first</option>
+                <option value="all">All</option>
+                {prop.values.map((val) => (
+                  <option key={val} value={val}>
+                    {val}
+                  </option>
+                ))}
               </select>
             </Filter>
-          </FiltersWrapper>
-        </CategoryHeader>
+          ))}
+          <Filter>
+            <span>Sort:</span>
+            <select
+              value={sort}
+              onChange={(ev) => {
+                setSort(ev.target.value);
+                setFiltersChanged(true);
+              }}
+            >
+              <option value="price-asc">price, lowest first</option>
+              <option value="price-desc">price, highest first</option>
+              <option value="_id-desc">newest first</option>
+              <option value="_id-asc">oldest first</option>
+            </select>
+          </Filter>
+        </FiltersWrapper>
+        {/* </CategoryHeader> */}
         {loadingProducts && <Spinner fullWidth />}
         {!loadingProducts && (
-          <div>
+          <div style={{ marginTop: "20px" }}>
             {products.length > 0 && <ProductsGrid products={products} />}
             {products.length === 0 && (
               <div
