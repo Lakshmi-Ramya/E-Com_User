@@ -113,7 +113,7 @@ export default function HeaderTwo({ product }) {
       </LightDiv>
 
       {/* Applewatch series 19 section */}
-      <DarkDiv>
+      <DarkDivTwo>
         <img
           style={{ width: "220px" }}
           src="../images/apple watch cropped bg.png"
@@ -133,11 +133,11 @@ export default function HeaderTwo({ product }) {
         <Zoom duration={2500} delay={200}>
           <img src="./images/applewatch.png" alt="Series 9" className="image" />
         </Zoom>
-      </DarkDiv>
+      </DarkDivTwo>
 
       {/* Carousel section */}
 
-      <CarouselContainer>
+      {/* <CarouselContainer>
         <Carousel
           showArrows={true}
           autoPlay={false}
@@ -169,20 +169,20 @@ export default function HeaderTwo({ product }) {
             alt="Carousel Image 4"
           />
         </Carousel>
-      </CarouselContainer>
+      </CarouselContainer> */}
 
       {/* Display DiscountBanner as an image */}
-      <DarkDivTwo>
-        <DiscountBanner
+      {/* <DarkDivTwo> */}
+      {/* <DiscountBanner
           src="./images/Group_1.png"
           alt="Discount Banner"
           style={{ width: "100%" }}
-        />
+        /> */}
 
-        {/* ACCESORIES */}
+      {/* ACCESORIES */}
 
-        <Accessories />
-      </DarkDivTwo>
+      {/* <Accessories /> */}
+      {/* </DarkDivTwo> */}
 
       {/* SUPPORT */}
       <Support />

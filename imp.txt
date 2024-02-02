@@ -1,0 +1,48 @@
+
+very important stuff to remember:
+
+- Next js runs on Node js.
+- Next js is a framework that is built on top of React and Node.js
+- It is specifically designed for building React based applications
+- Next.js applications run on a Node.js server. 
+    When you use features like server-side rendering or API routes in Next.js, 
+    Node.js is responsible for executing the server-side code.
+- When you run a Next.js application, it starts a Node.js server to handle incoming requests,
+    perform server-side rendering, and execute server-side logic.
+
+-->> regarding MONGODB:
+
+why is MONGODB used in your project but not MySQL?
+
+ans: 
+Mongodb is used in our project because it is more compatible due to various reasons like:
+
+- JSON Like Documents:
+    It stores data in a flexible, JSON like BSON ( Binary JSON ) format.
+    It aligns well with JSON used in both Node js and NextJS
+
+- Schema less design:
+    Mongo Db is schema-less
+    allowing developers to insert data without a predefined schema
+    This is an advantage during the development phase, especially while working with rapidly changing data models
+    or in scenarios where schema is not well defined
+
+- No SQL joins:
+    designed to scale horizontally by sharding data across multiple servers
+
+- Middleware and libs:
+    it has dedicated libs and middleware designed for Node js, making integration seamless.
+
+- Async Nature of Node.js:
+    more effecient handling of db operations without blocking the event loop.
+
+
+-->> Tech used:
+
+- Next js ( for server side and client side rendering)
+- React js ( for client side rendering )
+- Styled components, Tailwind css and Material UI ( for Styling and designing )
+- NextAuth ( for user authentication -> google sign in )
+- Mongodb ( for storing data in the database )
+- AWS S3 buckets ( for storing the images, so users can access them globally )
+- Stripe ( for payments )
